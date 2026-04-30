@@ -1,14 +1,33 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-google-antigravity-auth"],
-  "instructions": ["./AGENTS.md"],
+  "plugin": [
+    "opencode-antigravity-auth@latest"
+  ],
+  "instructions": [
+    "./AGENTS.md"
+  ],
   "watcher": {
-    "ignore": ["node_modules/**", "dist/**", ".git/**"]
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      ".git/**"
+    ]
   },
   "mcp": {
+    "google-stitch": {
+      "type": "remote",
+      "url": "https://stitch.googleapis.com/mcp",
+      "headers": {
+        "Accept": "application/json",
+        "X-Goog-Api-Key": ""
+      }
+    },
     "gitnexus": {
       "type": "local",
-      "command": ["gitnexus", "mcp"]
-    }
+      "command": [
+        "gitnexus",
+        "mcp"
+      ]
+    },
   }
 }
