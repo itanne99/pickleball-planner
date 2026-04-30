@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-	"name": "Ubuntu",
+	"name": "Pickleball Planner Dev Container",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:noble",
 	"features": {
@@ -15,10 +15,15 @@
 		"vscode": {
 			"extensions": [
 				"gitguardian-secret-security.gitguardian",
-				"piotrpalarz.vscode-gitignore-generator"
+				"piotrpalarz.vscode-gitignore-generator",
+				"IbrahimCesar.ibrahimcesar-nextjs-developer-pack",
+				"eamodio.gitlens",
+				"streetsidesoftware.code-spell-checker",
+				"GitHub.copilot-chat",
+				"4bde9604-932c-638d-b5d2-db273992f59c.front-end-extension-gold-pack"
 			]
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -28,6 +33,10 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
+	"postCreateCommand": {
+		"gitnexus": "npm install -g gitnexus && gitnexus analyze",
+		"yarn-install": "yarn -y"
+	}
 
 	// Configure tool-specific properties.
 	// "customizations": {},

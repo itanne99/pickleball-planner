@@ -39,3 +39,28 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.gitnexus
+
+# opencode
+opencode.jsonc.tui-migration.bak
+skills-lock.json
+
+# devcontainer
+.devcontainer/devcontainer-lock.json
+
+# backup files
+*.bak
+*.backup
+*.tmp
+
+# IDE
+.vscode/settings.json
+.vscode/*.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+.DS_Store
