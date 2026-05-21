@@ -18,7 +18,7 @@ export default function PlayerDashboard() {
             <h1 className="fw-bold mb-3" style={{ color: 'var(--bs-primary)' }}>
               Welcome back, {mockUser.name}
             </h1>
-            <p className="fs-5 text-muted">
+            <p className="fs-5 ">
               Ready to hit the courts? Check out your upcoming matches.
             </p>
             <Button variant="primary" className="mt-3 rounded-pill px-4 py-2 neon-glow-primary fw-bold text-dark">
@@ -37,10 +37,10 @@ export default function PlayerDashboard() {
               <Card className="h-100 p-4 glass-panel">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <Pill variant="primary">{match.date}</Pill>
-                  <span className="text-muted small">{match.time}</span>
+                  <span className=" small">{match.time}</span>
                 </div>
                 <h5 className="mb-2 fw-bold text-white">{match.opponent}</h5>
-                <p className="mb-0 text-muted d-flex align-items-center">
+                <p className="mb-0  d-flex align-items-center">
                   <span className="me-2">📍</span> {match.location}
                 </p>
               </Card>

@@ -36,9 +36,9 @@ export default function AdminPanel() {
             <Table variant="dark" className="m-0 align-middle" hover style={{ backgroundColor: 'transparent' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid #1F222C' }}>
-                  <th className="py-3 px-4 border-0 text-muted">USER</th>
-                  <th className="py-3 px-4 border-0 text-muted">ROLE</th>
-                  <th className="py-3 px-4 border-0 text-muted text-end">ACTIONS</th>
+                  <th className="py-3 px-4 border-0 ">USER</th>
+                  <th className="py-3 px-4 border-0 ">ROLE</th>
+                  <th className="py-3 px-4 border-0  text-end">ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
@@ -49,7 +49,7 @@ export default function AdminPanel() {
                         <Avatar initials={user.name.charAt(0)} size={40} className="me-3" />
                         <div>
                           <div className="fw-bold text-white">{user.name}</div>
-                          <div className="small text-muted">{user.email || 'N/A'}</div>
+                          <div className="small ">{user.email || 'N/A'}</div>
                         </div>
                       </div>
                     </td>

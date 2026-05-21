@@ -19,7 +19,7 @@ export default function TeamDashboard() {
             <h1 className="fw-bold mb-3" style={{ color: 'var(--bs-primary)' }}>
               {mockTeam.name}
             </h1>
-            <p className="text-muted mb-4">Team Dashboard and Roster</p>
+            <p className=" mb-4">Team Dashboard and Roster</p>
             <StatBar label="Season Win Rate" value={75} max={100} variant="primary" className="mb-4 text-start" />
             <StatBar label="Team Chemistry" value={92} max={100} variant="secondary" className="text-start" />
           </Col>
