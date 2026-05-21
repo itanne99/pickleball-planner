@@ -44,6 +44,7 @@ next-env.d.ts
 # opencode
 opencode.jsonc.tui-migration.bak
 skills-lock.json
+.sisyphus
 
 # devcontainer
 .devcontainer/devcontainer-lock.json
@@ -64,3 +65,7 @@ skills-lock.json
 # OS
 Thumbs.db
 .DS_Store
+
+# Added by ggshield
+.cache_ggshield
+
