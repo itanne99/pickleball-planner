@@ -34,7 +34,7 @@ export default function Scorecard() {
               <h2 className="mb-3">Scorecard</h2>
               <div className="mb-4">
                 <h4 style={{ color: 'var(--bs-primary)' }}>Match vs {match.opponent}</h4>
-                <p className="">{match.date} at {match.time}</p>
+                <p>{match.date} at {match.time}</p>
               </div>
 
               <div className="d-flex justify-content-center mb-4">

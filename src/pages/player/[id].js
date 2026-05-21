@@ -28,7 +28,7 @@ export default function PlayerProfile() {
               <div className="d-flex flex-column align-items-center mb-4">
                 <Avatar initials={getInitials(user.name)} size={100} className="mb-3 neon-glow-primary" />
                 <h2 className="mb-1">{user.name}</h2>
-                <p className=" mb-2">{user.email}</p>
+                <p className="mb-2">{user.email}</p>
                 <Pill>{user.role}</Pill>
               </div>
 

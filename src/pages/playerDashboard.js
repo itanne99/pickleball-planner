@@ -18,7 +18,7 @@ export default function PlayerDashboard() {
             <h1 className="fw-bold mb-3" style={{ color: 'var(--bs-primary)' }}>
               Welcome back, {mockUser.name}
             </h1>
-            <p className="fs-5 ">
+            <p className="fs-5">
               Ready to hit the courts? Check out your upcoming matches.
             </p>
             <Button variant="primary" className="mt-3 rounded-pill px-4 py-2 neon-glow-primary fw-bold text-dark">

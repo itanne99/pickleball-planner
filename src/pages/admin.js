@@ -36,9 +36,9 @@ export default function AdminPanel() {
             <Table variant="dark" className="m-0 align-middle" hover style={{ backgroundColor: 'transparent' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid #1F222C' }}>
-                  <th className="py-3 px-4 border-0 ">USER</th>
-                  <th className="py-3 px-4 border-0 ">ROLE</th>
-                  <th className="py-3 px-4 border-0  text-end">ACTIONS</th>
+                  <th className="py-3 px-4 border-0">USER</th>
+                  <th className="py-3 px-4 border-0">ROLE</th>
+                  <th className="py-3 px-4 border-0 text-end">ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
