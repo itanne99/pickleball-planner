@@ -29,3 +29,57 @@ body {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid #1F222C;
 }
+
+/* Marketing page utilities */
+.marketing-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(5, 5, 5, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.hero-gradient {
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 229, 255, 0.15) 0%, transparent 60%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #00E5FF 0%, #FF4081 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.feature-card {
+  background: var(--surface-dim);
+  border: 1px solid #1F222C;
+  border-radius: 0.75rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: rgba(0, 229, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
+}
+
+.btn-outline-neon {
+  background: transparent;
+  border: 1px solid #00E5FF;
+  color: #00E5FF;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-neon:hover {
+  background: rgba(0, 229, 255, 0.1);
+  color: #00E5FF;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.cta-section {
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 229, 255, 0.05) 100%);
+  border-top: 1px solid #1F222C;
+}
