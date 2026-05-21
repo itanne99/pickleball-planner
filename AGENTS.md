@@ -108,3 +108,20 @@ Closes #128
 `L42: 🔴 bug: user can be null after .find(). Add guard before .email.`
 
 <!-- caveman:end -->
+
+# Context7 — Documentation Lookup
+
+**ALWAYS use Context7 MCP** when looking up documentation for any library, framework, SDK, API, or cloud service — even well-known ones like Next.js, React, Bootstrap, or ESLint. Training data may not reflect recent changes.
+
+## Workflow
+
+1. `context7_resolve-library-id` with library name + question (e.g., libraryName: "next.js", query: "how to configure API routes in pages router")
+2. Pick best match by: exact name, description relevance, snippet count, reputation (High/Medium), benchmark score
+3. `context7_query-docs` with selected library ID + full question
+4. Answer using fetched docs
+
+## Rules
+
+- Use even when you think you know the answer — deprecations and breaking changes happen
+- Do NOT use for: refactoring, writing scripts from scratch, debugging business logic, general programming concepts
+- Re-query if results look stale or don't match the installed version
