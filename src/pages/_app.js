@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "@/styles/globals.css";
 import { Lexend } from "next/font/google";
 import Layout from '@/components/Layout';
+import Footer from '@/components/Footer';
 
 const lexend = Lexend({ subsets: ['latin'], variable: '--font-lexend' });
 
@@ -11,6 +12,7 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <Footer />
     </div>
   );
 }
