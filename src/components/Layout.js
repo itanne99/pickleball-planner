@@ -18,7 +18,9 @@ export default function Layout({ children }) {
               <Nav className="me-auto">
                 <Nav.Link href="/playerDashboard" as={Link}>Dashboard</Nav.Link>
                 <Nav.Link href="/team/dashboard" as={Link}>Team Dashboard</Nav.Link>
+                <Nav.Link href="/league" as={Link}>League</Nav.Link>
                 <Nav.Link href="/admin" as={Link}>Admin</Nav.Link>
+                <Nav.Link href="/orgAdmin" as={Link}>Org Admin</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
