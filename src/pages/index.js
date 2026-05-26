@@ -53,7 +53,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="hero-gradient" style={{ paddingTop: '160px', paddingBottom: '80px' }}>
-        <Container className="text-center">
+        <Container fluid className="text-center">
           <h1 className="fw-bold mb-4" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
             Your Game. Your Team.<br />
             <span className="text-gradient">Your Edge.</span>
@@ -101,7 +101,7 @@ export default function Home() {
 
       {/* Stats Bar */}
       <section style={{ padding: '48px 0', borderTop: '1px solid #1F222C', borderBottom: '1px solid #1F222C' }}>
-        <Container>
+        <Container fluid>
           <Row className="text-center">
             <Col>
               <div className="fw-bold" style={{ fontSize: '2rem', color: 'var(--bs-primary)' }}>500+</div>
@@ -121,7 +121,7 @@ export default function Home() {
 
       {/* CTA */}
       <section className="cta-section" style={{ padding: '80px 0' }}>
-        <Container className="text-center">
+        <Container fluid className="text-center">
           <h2 className="fw-bold mb-4" style={{ fontSize: '2.5rem' }}>
             Ready to Elevate Your Game?
           </h2>

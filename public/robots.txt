@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /orgAdmin
+Disallow: /api/
+
+Sitemap: https://pickleballplanner.com/sitemap.xml

@@ -7,6 +7,7 @@
   --surface: #0d141d;
   --inverse-surface: #dce3f1;
   --outline: #849396;
+  --text-subtle: #bac9cc;
 }
 
 body {
@@ -27,7 +28,48 @@ body {
   background: rgba(18, 20, 28, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid #1F222C;
+  border: 1px solid rgba(0, 229, 255, 0.12);
+}
+
+/* Utility text classes - NO text-muted (too dark on dark bg) */
+.text-subtle { color: var(--text-subtle) !important; }
+.text-faint { color: var(--outline) !important; }
+
+/* DUPR badge */
+.dupr-badge {
+  color: #00E5FF;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Status dots */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status-dot.active { background: #22C55E; }
+.status-dot.inactive { background: #EF4444; }
+.status-dot.away { background: #F59E0B; }
+
+/* Card interactive hover */
+.card-interactive {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+.card-interactive:hover {
+  border-color: rgba(0, 229, 255, 0.4) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 15px rgba(0, 229, 255, 0.1) !important;
+}
+
+/* Section labels */
+.section-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+  font-weight: 500;
 }
 
 /* Marketing page utilities */
@@ -56,7 +98,7 @@ body {
 
 .feature-card {
   background: var(--surface-dim);
-  border: 1px solid #1F222C;
+  border: 1px solid rgba(0, 229, 255, 0.12);
   border-radius: 0.75rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -81,5 +123,106 @@ body {
 
 .cta-section {
   background: linear-gradient(180deg, transparent 0%, rgba(0, 229, 255, 0.05) 100%);
-  border-top: 1px solid #1F222C;
+  border-top: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+/* Form styling - white placeholders and icons */
+.form-control::placeholder,
+.form-select::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: #dce3f1 !important;
+  opacity: 0.7;
+}
+
+.form-control,
+.form-select {
+  color: #dce3f1 !important;
+  background-color: #12141C !important;
+  border-color: rgba(0, 229, 255, 0.15) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: rgba(0, 229, 255, 0.4) !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 229, 255, 0.15) !important;
+  color: #dce3f1 !important;
+  background-color: #12141C !important;
+}
+
+.form-select option {
+  background-color: #12141C;
+  color: #dce3f1;
+}
+
+/* Rounded search bar */
+.search-bar .form-control {
+  border-radius: 9999px !important;
+  border-top-left-radius: 9999px !important;
+  border-bottom-left-radius: 9999px !important;
+}
+
+.search-bar .input-group-text:first-child {
+  border-radius: 9999px 0 0 9999px !important;
+}
+
+.search-bar .input-group-text:last-child {
+  border-radius: 0 9999px 9999px 0 !important;
+}
+
+/* Modal styling */
+.modal-content {
+  background-color: #12141C !important;
+  border: 1px solid rgba(0, 229, 255, 0.15) !important;
+}
+
+.modal-header {
+  border-bottom-color: rgba(0, 229, 255, 0.15) !important;
+}
+
+.modal-footer {
+  border-top-color: rgba(0, 229, 255, 0.15) !important;
+}
+
+.btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Dropdown styling */
+.dropdown-menu {
+  background-color: #12141C !important;
+  border-color: rgba(0, 229, 255, 0.15) !important;
+}
+
+.dropdown-item {
+  color: #dce3f1 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: rgba(0, 229, 255, 0.1) !important;
+  color: #00E5FF !important;
+}
+
+/* Tabs styling */
+.nav-pills .nav-link {
+  color: #bac9cc !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(0, 229, 255, 0.1) !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: rgba(0, 229, 255, 0.15) !important;
+  color: #00E5FF !important;
+  border-color: rgba(0, 229, 255, 0.3) !important;
+}
+
+/* Table styling */
+.table-dark {
+  --bs-table-bg: transparent !important;
+}
+
+.table-dark th,
+.table-dark td {
+  color: #dce3f1 !important;
 }
