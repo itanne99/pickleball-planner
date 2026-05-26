@@ -25,7 +25,7 @@ export default function LeaguePage() {
             value={selectedLeagueId}
             onChange={e => setSelectedLeagueId(e.target.value)}
             className="rounded-pill"
-            style={{ width: '280px', backgroundColor: '#12141C', borderColor: '#1F222C', color: '#fff' }}
+            style={{ width: '280px', backgroundColor: '#12141C', borderColor: 'rgba(0, 229, 255, 0.15)', color: '#fff' }}
           >
             {mockLeagues.map(league => (
               <option key={league.id} value={league.id}>
@@ -36,20 +36,20 @@ export default function LeaguePage() {
         </div>
 
         {selectedLeague && (
-          <Row>
+          <Row className="g-4">
             <Col md={5}>
-              <Card className="glass-panel p-4">
-                <h5 className="text-uppercase mb-3" style={{ color: 'var(--outline)', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
+              <Card className="glass-panel p-4" variant="accent">
+                <h5 className="section-label mb-3">
                   Season
                 </h5>
-                <h3 className="fw-bold text-white mb-3">{selectedLeague.name}</h3>
+                <h3 className="fw-bold mb-3" style={{ color: '#dce3f1' }}>{selectedLeague.name}</h3>
                 <Pill variant="primary" className="mb-3">{selectedLeague.seasonName}</Pill>
-                <div className="mt-3" style={{ color: 'var(--outline)', fontSize: '0.9rem' }}>
+                <div className="mt-3 text-subtle" style={{ fontSize: '0.9rem' }}>
                   <div className="mb-1">
-                    <span className="fw-bold text-white">Start:</span> {selectedLeague.startDate}
+                    <span className="fw-bold" style={{ color: '#dce3f1' }}>Start:</span> {selectedLeague.startDate}
                   </div>
                   <div>
-                    <span className="fw-bold text-white">End:</span> {selectedLeague.endDate}
+                    <span className="fw-bold" style={{ color: '#dce3f1' }}>End:</span> {selectedLeague.endDate}
                   </div>
                 </div>
               </Card>
@@ -57,22 +57,25 @@ export default function LeaguePage() {
 
             <Col md={7}>
               <Card className="glass-panel p-4">
-                <h5 className="text-uppercase mb-3" style={{ color: 'var(--outline)', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
+                <h5 className="section-label mb-3">
                   Divisions ({divisions.length})
                 </h5>
                 {divisions.length === 0 ? (
-                  <p style={{ color: 'var(--outline)' }}>No divisions for this season.</p>
+                  <p className="text-subtle">No divisions for this season.</p>
                 ) : (
                   <div className="d-flex flex-column gap-3">
                     {divisions.map(division => (
-                      <div
+                      <Card
                         key={division.id}
-                        className="d-flex justify-content-between align-items-center p-3 rounded"
-                        style={{ backgroundColor: 'rgba(0, 229, 255, 0.05)', border: '1px solid #1F222C' }}
+                        className="p-3"
+                        variant="muted"
+                        interactive
                       >
-                        <span className="fw-bold text-white">{division.name}</span>
-                        <Pill variant="secondary">{division.id.split('-')[0].toUpperCase()}</Pill>
-                      </div>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <span className="fw-bold" style={{ color: '#dce3f1' }}>{division.name}</span>
+                          <Pill variant="secondary">{division.id.split('-')[0].toUpperCase()}</Pill>
+                        </div>
+                      </Card>
                     ))}
                   </div>
                 )}
