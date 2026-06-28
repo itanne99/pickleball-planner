@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Container, Row, Col } from 'react-bootstrap';
-import Layout from '../../components/Layout';
+import { FiMapPin } from 'react-icons/fi';
 import Card from '../../components/Card';
 import Pill from '../../components/Pill';
 import PlayerCard from '../../components/PlayerCard';
@@ -16,7 +16,7 @@ export default function TeamProfile() {
   const divisions = mockDivisions.slice(0, 2);
 
   return (
-    <Layout>
+    <>
       <Container className="py-4">
         <Row className="mb-4">
           <Col>
@@ -41,8 +41,8 @@ export default function TeamProfile() {
           </p>
           <div className="d-flex flex-wrap gap-3">
             {location && (
-              <div className="text-subtle small">
-                &#128205; {location.name}
+              <div className="text-subtle small d-flex align-items-center gap-1">
+                <FiMapPin className="text-primary" /> {location.name}
               </div>
             )}
             <div className="text-subtle small">
@@ -78,6 +78,6 @@ export default function TeamProfile() {
           ))}
         </Row>
       </Container>
-    </Layout>
+    </>
   );
 }

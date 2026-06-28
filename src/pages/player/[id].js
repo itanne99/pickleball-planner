@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
-import Layout from '../../components/Layout';
 import Card from '../../components/Card';
 import PlayerCard from '../../components/PlayerCard';
 import StatBar from '../../components/StatBar';
@@ -18,7 +17,7 @@ export default function PlayerProfile() {
   const playerTeams = mockTeams.filter(t => t.playerIds.includes(user.id) || t.members?.some(m => m.id === user.id));
 
   return (
-    <Layout>
+    <>
       <Container className="py-4">
         <Row className="mb-4">
           <Col>
@@ -73,6 +72,6 @@ export default function PlayerProfile() {
           </Row>
         </Card>
       </Container>
-    </Layout>
+    </>
   );
 }
