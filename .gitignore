@@ -66,6 +66,10 @@ skills-lock.json
 Thumbs.db
 .DS_Store
 
+# Antigravity
+.agents
+.claude
+
 # Added by ggshield
 .cache_ggshield
 
