@@ -175,9 +175,17 @@ export default function AnalyticsPage() {
                 </thead>
                 <tbody>
                   {topPlayers.map((p, idx) => (
-                    <tr key={p.playerId}>
+                    <tr key={p.playerId} className="align-middle">
                       <td>
-                        {idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : idx + 1}
+                        {idx === 0 ? (
+                          <span className="badge rounded-circle bg-warning text-dark d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>1</span>
+                        ) : idx === 1 ? (
+                          <span className="badge rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>2</span>
+                        ) : idx === 2 ? (
+                          <span className="badge rounded-circle bg-danger text-white d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>3</span>
+                        ) : (
+                          <span className="ps-2">{idx + 1}</span>
+                        )}
                       </td>
                       <td>
                         <Link href={`/player/${p.playerId}`} className="text-decoration-none" style={{ color: '#dce3f1' }}>

@@ -5,8 +5,10 @@ import { mockTeam, mockUser } from '@/data/mock';
 import Card from '@/components/Card';
 import Pill from '@/components/Pill';
 import Avatar from '@/components/Avatar';
+import { useToast } from '@/components/ToastProvider';
 
 export default function CaptainsPortal() {
+  const { addToast } = useToast();
   const [users, setUsers] = useState([
     mockUser,
     ...mockTeam.members.filter(m => m.id !== mockUser.id).map(m => ({
@@ -55,7 +57,12 @@ export default function CaptainsPortal() {
           <h1 className="fw-bold m-0" style={{ color: 'var(--bs-primary)' }}>
             Captains Portal
           </h1>
-          <Button variant="outline-primary" className="rounded-pill px-4 fw-bold" style={{ borderColor: 'var(--bs-primary)', color: 'var(--bs-primary)' }}>
+          <Button
+            variant="outline-primary"
+            className="rounded-pill px-4 fw-bold"
+            style={{ borderColor: 'var(--bs-primary)', color: 'var(--bs-primary)' }}
+            onClick={() => addToast('Add User feature is not active in prototype', 'warning')}
+          >
             + Add New User
           </Button>
         </div>

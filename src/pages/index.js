@@ -2,25 +2,26 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { FiCalendar, FiUsers, FiBarChart2, FiSettings } from 'react-icons/fi';
 
 const features = [
   {
-    icon: '📅',
+    icon: <FiCalendar className="fs-2 text-primary mb-3 d-block" />,
     title: 'Smart Scheduling',
     description: 'Find matches, book courts, and coordinate with your team. Never miss a game with intelligent conflict detection.',
   },
   {
-    icon: '👥',
+    icon: <FiUsers className="fs-2 text-primary mb-3 d-block" />,
     title: 'Team Management',
     description: 'Build rosters, assign roles, and keep everyone in sync. From casual squads to competitive leagues.',
   },
   {
-    icon: '📊',
+    icon: <FiBarChart2 className="fs-2 text-primary mb-3 d-block" />,
     title: 'Scorecards & Stats',
     description: 'Track every point, every game, every match. Detailed analytics to find your edge and measure progress.',
   },
   {
-    icon: '🔧',
+    icon: <FiSettings className="fs-2 text-primary mb-3 d-block" />,
     title: 'Admin Tools',
     description: 'Full league configuration, role-based permissions, and oversight dashboards for organizers.',
   },
@@ -89,7 +90,7 @@ export default function Home() {
             {features.map((feature) => (
               <Col md={6} lg={3} key={feature.title} className="mb-4">
                 <div className="feature-card p-4 h-100">
-                  <span className="fs-2 mb-3 d-block">{feature.icon}</span>
+                  {feature.icon}
                   <h5 className="fw-bold mb-2" style={{ color: 'var(--bs-primary)' }}>{feature.title}</h5>
                   <p className="mb-0" style={{ color: 'var(--bs-body-color)', opacity: 0.8 }}>{feature.description}</p>
                 </div>

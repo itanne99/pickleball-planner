@@ -7,6 +7,7 @@ import Card from '@/components/Card';
 import Pill from '@/components/Pill';
 import Avatar from '@/components/Avatar';
 import WinLossBadge from '@/components/WinLossBadge';
+import { FiMapPin } from 'react-icons/fi';
 
 export default function PlayerDashboard() {
   const router = useRouter();
@@ -68,8 +69,8 @@ export default function PlayerDashboard() {
                   <span className="text-subtle small">{match.time}</span>
                 </div>
                 <h5 className="mb-2 fw-bold" style={{ color: '#dce3f1' }}>{match.opponent}</h5>
-                <p className="mb-0 text-subtle d-flex align-items-center">
-                  <span className="me-2">&#128205;</span> {match.location}
+                <p className="mb-0 text-subtle d-flex align-items-center gap-1">
+                  <FiMapPin className="text-primary" /> {match.location}
                 </p>
               </Card>
             </Col>

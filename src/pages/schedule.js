@@ -6,6 +6,7 @@ import { FiCalendar, FiClock, FiMapPin, FiX } from 'react-icons/fi';
 import { mockMatches, mockTeams, mockLocations, mockLeagues } from '@/data/mock';
 import SectionHeader from '@/components/SectionHeader';
 import StatusBadge from '@/components/StatusBadge';
+import { useToast } from '@/components/ToastProvider';
 import { format } from 'date-fns';
 
 const teamMap = {};
@@ -15,6 +16,7 @@ const locationMap = {};
 mockLocations.forEach(l => { locationMap[l.id] = l.name; });
 
 export default function SchedulePage() {
+  const { addToast } = useToast();
   const [view, setView] = useState('upcoming');
   const [selectedMatch, setSelectedMatch] = useState(null);
 
@@ -41,7 +43,7 @@ export default function SchedulePage() {
         title="Schedule"
         subtitle={`${upcoming.length} upcoming matches`}
         action={
-          <Button variant="primary" size="sm">
+          <Button variant="primary" size="sm" onClick={() => addToast('Match creation is not active in prototype', 'warning')}>
             <FiCalendar className="me-1" /> New Match
           </Button>
         }
@@ -109,8 +111,13 @@ export default function SchedulePage() {
                     </div>
                   </div>
                 )}
-                {selectedMatch.status === 'scheduled' && (
-                  <div className="mt-3 text-subtle">Match not yet played</div>
+                 {selectedMatch.status === 'scheduled' && (
+                  <div className="mt-3">
+                    <p className="text-subtle mb-3">Match not yet played</p>
+                    <Link href={`/scorecard/new?matchId=${selectedMatch.id}`} className="btn btn-primary btn-sm">
+                      Enter Scorecard Results
+                    </Link>
+                  </div>
                 )}
               </div>
             </Modal.Body>
@@ -127,14 +134,25 @@ function MatchCard({ match, showScore, onViewScorecard }) {
       <Card.Body>
         <div className="d-flex justify-content-between align-items-start mb-2">
           <StatusBadge status={match.status} />
-          <Button
-            variant="outline-primary"
-            size="sm"
-            onClick={(e) => { e.stopPropagation(); onViewScorecard(); }}
-            style={{ borderColor: 'rgba(0, 229, 255, 0.3)', color: '#00E5FF' }}
-          >
-            {showScore ? 'View Scorecard' : 'Enter Scorecard'}
-          </Button>
+          {showScore ? (
+            <Button
+              variant="outline-primary"
+              size="sm"
+              onClick={(e) => { e.stopPropagation(); onViewScorecard(); }}
+              style={{ borderColor: 'rgba(0, 229, 255, 0.3)', color: '#00E5FF' }}
+            >
+              View Scorecard
+            </Button>
+          ) : (
+            <Link
+              href={`/scorecard/new?matchId=${match.id}`}
+              className="btn btn-outline-primary btn-sm"
+              onClick={(e) => e.stopPropagation()}
+              style={{ borderColor: 'rgba(0, 229, 255, 0.3)', color: '#00E5FF', textDecoration: 'none' }}
+            >
+              Enter Scorecard
+            </Link>
+          )}
         </div>
         <h5 className="mb-2" style={{ color: '#dce3f1' }}>
           {match.homeTeamName} <span className="text-subtle">vs</span> {match.awayTeamName}
