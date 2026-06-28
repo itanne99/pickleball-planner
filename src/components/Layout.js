@@ -1,34 +1,141 @@
-import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { useState } from 'react';
+import { Navbar, Nav, Container, Dropdown, Badge } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { FiBell, FiCalendar, FiUsers, FiAward, FiSettings, FiBarChart2, FiUser, FiHome } from 'react-icons/fi';
+import { mockNotifications, mockLeagues, mockDivisions } from '@/data/mock';
+
+const navLinks = [
+  { href: '/playerDashboard', label: 'Dashboard', icon: <FiHome /> },
+  { href: '/players', label: 'Players', icon: <FiUsers /> },
+  { href: '/team/dashboard', label: 'Teams', icon: <FiUsers /> },
+  { href: '/schedule', label: 'Schedule', icon: <FiCalendar /> },
+  { href: '/analytics', label: 'Analytics', icon: <FiBarChart2 /> },
+  { href: '/captains-portal', label: 'Captains Portal', icon: <FiSettings /> },
+  { href: '/orgAdmin', label: 'Org Admin', icon: <FiSettings /> },
+];
 
 export default function Layout({ children }) {
   const { pathname } = useRouter();
   const showNav = pathname !== '/';
+  const notifications = mockNotifications.filter(n => !n.read);
 
   return (
     <div style={{ backgroundColor: '#050505', minHeight: '100vh', color: '#fff' }}>
       {showNav && (
-        <Navbar variant="dark" bg="dark" expand="lg">
+        <Navbar variant="dark" bg="dark" expand="lg" className="border-bottom border-secondary">
           <Container>
-            <Navbar.Brand href="/" as={Link}>Pickleball Planner</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Brand as={Link} href="/" className="fw-bold">
+              <span className="text-primary">Pickleball</span> Planner
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="main-navbar" />
+            <Navbar.Collapse id="main-navbar">
               <Nav className="me-auto">
-                <Nav.Link href="/playerDashboard" as={Link}>Dashboard</Nav.Link>
-                <Nav.Link href="/team/dashboard" as={Link}>Team Dashboard</Nav.Link>
-                <Nav.Link href="/league" as={Link}>League</Nav.Link>
-                <Nav.Link href="/admin" as={Link}>Admin</Nav.Link>
-                <Nav.Link href="/orgAdmin" as={Link}>Org Admin</Nav.Link>
+                {navLinks.map(link => (
+                  <Nav.Link
+                    key={link.href}
+                    as={Link}
+                    href={link.href}
+                    active={pathname === link.href || pathname.startsWith(link.href + '/')}
+                  >
+                    {link.label}
+                  </Nav.Link>
+                ))}
+                <LeagueDropdown />
+              </Nav>
+              <Nav>
+                <NotificationBell count={notifications.length} />
+                <Nav.Link as={Link} href="/profile" className="d-flex align-items-center gap-1">
+                  <FiUser /> Profile
+                </Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       )}
-      <main>
-        {children}
+      <main className="py-4">
+        <Container>{children}</Container>
       </main>
     </div>
+  );
+}
+
+function LeagueDropdown() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <Dropdown show={show} onToggle={(isOpen) => setShow(isOpen)}>
+      <Dropdown.Toggle
+        as="div"
+        className="nav-link d-flex align-items-center gap-1 cursor-pointer"
+        id="league-dropdown"
+        style={{ color: 'inherit' }}
+      >
+        <FiAward /> Leagues
+      </Dropdown.Toggle>
+      <Dropdown.Menu align="start" className="bg-dark border-secondary p-0" style={{ minWidth: '400px' }}>
+        <div style={{ display: 'flex' }}>
+          <div style={{ flex: 1, padding: '8px 16px', borderRight: '1px solid #333' }}>
+            <div className="small fw-bold text-subtle px-2 py-1" style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>League</div>
+            {mockLeagues.map(league => (
+              <Dropdown.Item
+                key={league.id}
+                as={Link}
+                href={`/league`}
+                className="small py-1 px-2"
+                style={{ color: '#dce3f1' }}
+              >
+                {league.name}
+              </Dropdown.Item>
+            ))}
+          </div>
+          <div style={{ flex: 1, padding: '8px 16px' }}>
+            <div className="small fw-bold text-subtle px-2 py-1" style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Division</div>
+            {mockDivisions.map(division => (
+              <div
+                key={division.id}
+                className="small py-1 px-2"
+                style={{ color: '#bac9cc' }}
+              >
+                {division.name}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+}
+
+function NotificationBell({ count }) {
+  const [show, setShow] = useState(false);
+  const notifications = mockNotifications.slice(0, 5);
+
+  return (
+    <Dropdown show={show} onToggle={(isOpen) => setShow(isOpen)}>
+      <Dropdown.Toggle as="div" className="nav-link d-flex align-items-center gap-1 cursor-pointer" id="notification-dropdown">
+        <FiBell />
+        {count > 0 && (
+          <Badge pill bg="danger" className="position-absolute translate-middle" style={{ fontSize: '0.6rem' }}>
+            {count}
+          </Badge>
+        )}
+      </Dropdown.Toggle>
+      <Dropdown.Menu align="end" className="bg-dark border-secondary" style={{ width: '320px' }}>
+        <Dropdown.Header className="d-flex justify-content-between align-items-center">
+          <strong style={{ color: '#dce3f1' }}>Notifications</strong>
+          <Link href="/notifications" className="small text-primary text-decoration-none">View All</Link>
+        </Dropdown.Header>
+        {notifications.map(n => (
+          <Dropdown.Item key={n.id} as={Link} href="/notifications" className="text-wrap py-2">
+            <div className="fw-semibold small" style={{ color: '#dce3f1' }}>{n.title || n.type}</div>
+            <div className="small text-subtle text-truncate" style={{ maxWidth: '260px' }}>{n.message}</div>
+          </Dropdown.Item>
+        ))}
+        {notifications.length === 0 && (
+          <div className="text-center text-subtle py-3 small">No notifications</div>
+        )}
+      </Dropdown.Menu>
+    </Dropdown>
   );
 }

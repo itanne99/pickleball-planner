@@ -3,40 +3,77 @@ import { useRouter } from 'next/router';
 import { Container, Row, Col } from 'react-bootstrap';
 import Layout from '../../components/Layout';
 import Card from '../../components/Card';
-import Avatar from '../../components/Avatar';
 import Pill from '../../components/Pill';
-import { mockTeam } from '../../data/mock';
+import PlayerCard from '../../components/PlayerCard';
+import { mockTeam, mockLocations, mockDivisions, mockTeams } from '../../data/mock';
 
 export default function TeamProfile() {
   const router = useRouter();
   const { id } = router.query;
 
-  const team = mockTeam.id === id ? mockTeam : mockTeam;
+  const foundTeam = mockTeams.find(t => t.id === id) || mockTeam;
+  const location = mockLocations.find(l => l.id === foundTeam.locationId);
+  const divisions = mockDivisions.slice(0, 2);
 
   return (
     <Layout>
-      <Container>
-        <Card className="p-4 mb-4 neon-glow-primary">
+      <Container className="py-4">
+        <Row className="mb-4">
+          <Col>
+            <button
+              className="btn btn-link text-subtle p-0 mb-3"
+              onClick={() => router.back()}
+              style={{ textDecoration: 'none', fontSize: '0.9rem' }}
+            >
+              &#8592; Back
+            </button>
+          </Col>
+        </Row>
+
+        {/* Team Header Card */}
+        <Card className="p-4 mb-4" variant="accent">
           <div className="d-flex align-items-center mb-3">
-            <h2 className="mb-0 me-3">{team.name}</h2>
-            <Pill variant="primary">Active Team</Pill>
+            <h2 className="mb-0 me-3" style={{ color: '#dce3f1' }}>{foundTeam.name}</h2>
+            <Pill variant={foundTeam.status === 'active' ? 'primary' : 'secondary'}>{foundTeam.status}</Pill>
           </div>
-          <p style={{ color: 'var(--outline)' }}>
-            Welcome to the official team page for {team.name}. We are dedicated to dominating the court with skill and teamwork.
+          <p className="text-subtle mb-3">
+            Welcome to the official team page for {foundTeam.name}. We are dedicated to dominating the court with skill and teamwork.
           </p>
+          <div className="d-flex flex-wrap gap-3">
+            {location && (
+              <div className="text-subtle small">
+                &#128205; {location.name}
+              </div>
+            )}
+            <div className="text-subtle small">
+              {(foundTeam.playerIds?.length || foundTeam.members?.length || 0)} player{(foundTeam.playerIds?.length || foundTeam.members?.length || 0) !== 1 ? 's' : ''}
+            </div>
+          </div>
         </Card>
 
-        <h3 className="mb-3" style={{ color: 'var(--inverse-surface)' }}>Team Members</h3>
+        {/* Divisions */}
+        {divisions.length > 0 && (
+          <Card className="p-4 mb-4">
+            <h5 className="mb-3 fw-bold" style={{ color: '#dce3f1' }}>Divisions</h5>
+            <div className="d-flex flex-wrap gap-2">
+              {divisions.map(division => (
+                <Pill key={division.id} variant="primary">{division.name}</Pill>
+              ))}
+            </div>
+          </Card>
+        )}
+
+        {/* Team Members */}
+        <h3 className="mb-4 fw-bold" style={{ color: '#dce3f1' }}>Team Members</h3>
         <Row>
-          {team.members.map((member) => (
+          {(foundTeam.members || []).map((member) => (
             <Col md={6} lg={4} key={member.id} className="mb-3">
-              <Card className="p-3 d-flex flex-row align-items-center">
-                <Avatar initials={member.name.split(' ').map(n => n[0]).join('')} size={50} className="me-3" />
-                <div>
-                  <h5 className="mb-1">{member.name}</h5>
-                  <Pill variant="secondary" style={{ fontSize: '0.7rem' }}>{member.status}</Pill>
-                </div>
-              </Card>
+              <PlayerCard
+                player={member}
+                winCount={member.wins}
+                lossCount={member.losses}
+                avatarSize={55}
+              />
             </Col>
           ))}
         </Row>
