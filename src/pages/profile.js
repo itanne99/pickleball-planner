@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Row, Col, Card, Form, Button, Tabs, Tab, ListGroup, InputGroup } from 'react-bootstrap';
 import { FiUser, FiBell, FiSettings, FiMail, FiPhone, FiSave } from 'react-icons/fi';
 import { mockUser, mockNotifications } from '@/data/mock';
@@ -8,6 +8,12 @@ import StatCard from '@/components/StatCard';
 import Avatar from '@/components/Avatar';
 import { useToast } from '@/components/ToastProvider';
 
+const defaultPreferences = {
+  emailNotifications: true,
+  smsNotifications: false,
+  theme: 'dark'
+};
+
 export default function ProfilePage() {
   const { addToast } = useToast();
   const [profile, setProfile] = useState({
@@ -15,7 +21,25 @@ export default function ProfilePage() {
     email: mockUser.email,
     phone: mockUser.phone,
   });
-  const [preferences, setPreferences] = useState(mockUser.preferences);
+  const [preferences, setPreferences] = useState(() => {
+    const basePrefs = mockUser.preferences || defaultPreferences;
+    if (typeof window !== 'undefined') {
+      return {
+        ...basePrefs,
+        theme: localStorage.getItem('theme') || basePrefs.theme
+      };
+    }
+    return basePrefs;
+  });
+
+  const handleThemeChange = (newTheme) => {
+    setPreferences(prev => ({ ...prev, theme: newTheme }));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', newTheme);
+      document.body.classList.toggle('light-theme', newTheme === 'light');
+      addToast(`Theme switched to ${newTheme} mode`, 'success');
+    }
+  };
 
   const handleSaveProfile = () => {
     addToast('Profile updated successfully', 'success');
@@ -152,13 +176,18 @@ export default function ProfilePage() {
                         <Button variant="outline-primary" size="sm">Change</Button>
                       </div>
                     </ListGroup.Item>
-                    <ListGroup.Item className="bg-transparent border-bottom border-secondary">
+                     <ListGroup.Item className="bg-transparent border-bottom border-secondary">
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
                           <div className="fw-semibold">Theme</div>
-                          <small className="text-muted">Currently using dark theme</small>
+                          <small className="text-muted">Currently using {preferences.theme} theme</small>
                         </div>
-                        <Form.Select size="sm" style={{ width: 'auto' }} value={preferences.theme}>
+                        <Form.Select 
+                          size="sm" 
+                          style={{ width: 'auto' }} 
+                          value={preferences.theme}
+                          onChange={(e) => handleThemeChange(e.target.value)}
+                        >
                           <option value="dark">Dark</option>
                           <option value="light">Light</option>
                         </Form.Select>

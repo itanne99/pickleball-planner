@@ -10,10 +10,21 @@
   --text-subtle: #bac9cc;
 }
 
+body.light-theme {
+  --bs-body-bg: #FAF5FF;
+  --bs-body-color: #4C1D95;
+  --surface-dim: #FFFFFF;
+  --surface: #F3E8FF;
+  --inverse-surface: #1E1B4B;
+  --outline: #9333EA;
+  --text-subtle: #6B21A8;
+}
+
 body {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   font-family: var(--font-lexend), sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .neon-glow-primary {
@@ -153,6 +164,65 @@ textarea::placeholder {
 .form-select option {
   background-color: #12141C;
   color: #dce3f1;
+}
+
+/* Light Theme Form styling overrides */
+body.light-theme .form-control::placeholder,
+body.light-theme .form-select::placeholder,
+body.light-theme input::placeholder,
+body.light-theme textarea::placeholder {
+  color: #6B21A8 !important;
+  opacity: 0.7;
+}
+
+body.light-theme .form-control,
+body.light-theme .form-select {
+  color: #4C1D95 !important;
+  background-color: #FFFFFF !important;
+  border-color: rgba(124, 58, 237, 0.3) !important;
+}
+
+body.light-theme .form-control:focus,
+body.light-theme .form-select:focus {
+  border-color: rgba(124, 58, 237, 0.6) !important;
+  box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15) !important;
+  color: #4C1D95 !important;
+  background-color: #FFFFFF !important;
+}
+
+body.light-theme .form-select option {
+  background-color: #FFFFFF;
+  color: #4C1D95;
+}
+
+body.light-theme .modal-content {
+  background-color: #FFFFFF !important;
+  color: #4C1D95 !important;
+  border: 1px solid rgba(124, 58, 237, 0.2) !important;
+}
+
+body.light-theme .modal-header,
+body.light-theme .modal-footer {
+  border-color: rgba(124, 58, 237, 0.2) !important;
+}
+
+body.light-theme .btn-close {
+  filter: none;
+}
+
+body.light-theme .dropdown-menu {
+  background-color: #FFFFFF !important;
+  border-color: rgba(124, 58, 237, 0.2) !important;
+}
+
+body.light-theme .dropdown-item {
+  color: #4C1D95 !important;
+}
+
+body.light-theme .dropdown-item:hover,
+body.light-theme .dropdown-item:focus {
+  background-color: rgba(124, 58, 237, 0.1) !important;
+  color: #7C3AED !important;
 }
 
 /* Rounded search bar */
