@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import { mockLeagues, mockDivisions } from '@/data/mock';
 import Card from '@/components/Card';
 import Pill from '@/components/Pill';
 
 export default function LeaguePage() {
+  const router = useRouter();
+  const { leagueId } = router.query;
   const [selectedLeagueId, setSelectedLeagueId] = useState(mockLeagues[0]?.id);
+  const [prevLeagueId, setPrevLeagueId] = useState(null);
+
+  if (leagueId && leagueId !== prevLeagueId) {
+    setPrevLeagueId(leagueId);
+    if (mockLeagues.some(l => l.id === leagueId)) {
+      setSelectedLeagueId(leagueId);
+    }
+  }
 
   const selectedLeague = mockLeagues.find(l => l.id === selectedLeagueId);
   const divisions = mockDivisions.filter(d => d.leagueId === selectedLeagueId);
@@ -73,7 +84,7 @@ export default function LeaguePage() {
                       >
                         <div className="d-flex justify-content-between align-items-center">
                           <span className="fw-bold" style={{ color: '#dce3f1' }}>{division.name}</span>
-                          <Pill variant="secondary">{division.id.split('-')[0].toUpperCase()}</Pill>
+                          <Pill variant="secondary">{division.id.split('-', 1)[0].toUpperCase()}</Pill>
                         </div>
                       </Card>
                     ))}

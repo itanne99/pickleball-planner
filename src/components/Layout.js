@@ -62,44 +62,76 @@ export default function Layout({ children }) {
 
 function LeagueDropdown() {
   const [show, setShow] = useState(false);
+  const [activeLeagueId, setActiveLeagueId] = useState(null);
+  const { pathname } = useRouter();
+
+  const handleToggle = (isOpen) => {
+    setShow(isOpen);
+    if (!isOpen) {
+      setActiveLeagueId(null);
+    }
+  };
 
   return (
-    <Dropdown show={show} onToggle={(isOpen) => setShow(isOpen)}>
+    <Dropdown show={show} onToggle={handleToggle}>
       <Dropdown.Toggle
-        as="div"
-        className="nav-link d-flex align-items-center gap-1 cursor-pointer"
+        as={Nav.Link}
+        className="d-flex align-items-center gap-1 cursor-pointer"
         id="league-dropdown"
-        style={{ color: 'inherit' }}
+        active={pathname === '/league' || pathname.startsWith('/league/')}
       >
-        <FiAward /> Leagues
+        Leagues
       </Dropdown.Toggle>
-      <Dropdown.Menu align="start" className="bg-dark border-secondary p-0" style={{ minWidth: '400px' }}>
+      <Dropdown.Menu align="start" className="bg-dark border-secondary p-0" style={{ minWidth: '450px' }}>
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1, padding: '8px 16px', borderRight: '1px solid #333' }}>
             <div className="small fw-bold text-subtle px-2 py-1" style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>League</div>
-            {mockLeagues.map(league => (
-              <Dropdown.Item
-                key={league.id}
-                as={Link}
-                href={`/league`}
-                className="small py-1 px-2"
-                style={{ color: '#dce3f1' }}
-              >
-                {league.name}
-              </Dropdown.Item>
-            ))}
+            {mockLeagues.map(league => {
+              const isActive = activeLeagueId === league.id;
+              return (
+                <Dropdown.Item
+                  key={league.id}
+                  as={Link}
+                  href={`/league?leagueId=${league.id}`}
+                  className="small py-1 px-2 rounded transition-colors"
+                  onMouseEnter={() => setActiveLeagueId(league.id)}
+                  style={{
+                    backgroundColor: isActive ? 'rgba(0, 229, 255, 0.1)' : 'transparent',
+                    color: isActive ? '#00E5FF' : '#dce3f1',
+                    display: 'block',
+                    textDecoration: 'none'
+                  }}
+                >
+                  {league.name}
+                </Dropdown.Item>
+              );
+            })}
           </div>
           <div style={{ flex: 1, padding: '8px 16px' }}>
             <div className="small fw-bold text-subtle px-2 py-1" style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Division</div>
-            {mockDivisions.map(division => (
-              <div
-                key={division.id}
-                className="small py-1 px-2"
-                style={{ color: '#bac9cc' }}
-              >
-                {division.name}
+            {activeLeagueId ? (
+              mockDivisions
+                .filter(division => division.leagueId === activeLeagueId)
+                .map(division => (
+                  <Dropdown.Item
+                    key={division.id}
+                    as={Link}
+                    href={`/league?leagueId=${activeLeagueId}`}
+                    className="small py-1 px-2 rounded"
+                    style={{
+                      color: '#bac9cc',
+                      display: 'block',
+                      textDecoration: 'none'
+                    }}
+                  >
+                    {division.name}
+                  </Dropdown.Item>
+                ))
+            ) : (
+              <div className="small px-2 py-1 text-subtle" style={{ fontStyle: 'italic', fontSize: '0.8rem', opacity: 0.6 }}>
+                Hover league to view
               </div>
-            ))}
+            )}
           </div>
         </div>
       </Dropdown.Menu>
