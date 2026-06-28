@@ -76,7 +76,7 @@ export default function NotificationsPage() {
                       {!n.read && <Badge bg="primary" className="ms-2">New</Badge>}
                     </div>
                     <small className="text-muted">
-                      {formatDistanceToNow(new Date(n.createdAt), { addSuffix: true })}
+                      {n.createdAt || n.timestamp ? formatDistanceToNow(new Date(n.createdAt || n.timestamp), { addSuffix: true }) : 'recent'}
                     </small>
                   </div>
                   <p className="text-muted mb-0 small mt-1">{n.message}</p>
