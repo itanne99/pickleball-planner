@@ -1,14 +1,30 @@
 import React from 'react';
 
-export default function Avatar({ src, initials, size = 40, className = '', style = {}, ...props }) {
+const sizeMap = {
+  sm: 30,
+  md: 50,
+  lg: 80
+};
+
+const getInitials = (name) => {
+  if (!name) return '?';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+  return (parts[0].charAt(0) + parts.at(-1).charAt(0)).toUpperCase();
+};
+
+export default function Avatar({ src, initials, name, size = 40, className = '', style = {}, ...props }) {
+  const numericSize = typeof size === 'number' ? size : sizeMap[size] || 40;
+  const displayInitials = initials || getInitials(name);
+
   return (
     <div
       className={`avatar ${className}`}
       style={{
-        width: size,
-        height: size,
+        width: numericSize,
+        height: numericSize,
         borderRadius: '50%',
-        background: '#12141C',
+        background: 'var(--surface-dim, #12141C)',
         border: '1px solid #1F222C',
         display: 'inline-flex',
         alignItems: 'center',
@@ -16,7 +32,7 @@ export default function Avatar({ src, initials, size = 40, className = '', style
         overflow: 'hidden',
         color: 'var(--inverse-surface, #dce3f1)',
         fontWeight: '600',
-        fontSize: size * 0.4,
+        fontSize: numericSize * 0.4,
         ...style
       }}
       {...props}
@@ -24,7 +40,7 @@ export default function Avatar({ src, initials, size = 40, className = '', style
       {src ? (
         <img src={src} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       ) : (
-        initials || '?'
+        displayInitials
       )}
     </div>
   );

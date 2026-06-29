@@ -9,15 +9,23 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "bootstrap": "^5.3.8",
+    "date-fns": "^4.2.1",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.76.0",
+    "react-icons": "^5.6.0",
+    "recharts": "^3.8.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "agentation": "^3.0.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "eslint-plugin-unicorn": "^69.0.0",
     "typescript": "^6.0.3"
   }
 }
