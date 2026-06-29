@@ -328,4 +328,10 @@ body.light-theme .search-bar .input-group-text {
   border-left-color: #00E5FF !important;
 }
 
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 

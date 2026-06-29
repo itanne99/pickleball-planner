@@ -22,7 +22,7 @@ export default function Layout({ children }) {
   const notifications = mockNotifications.filter(n => !n.read);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#050505', color: '#fff' }}>
+    <div className="app-layout">
       {isShowNav && (
         <Navbar variant="dark" bg="dark" expand="lg" className="border-bottom border-secondary">
           <Container>
