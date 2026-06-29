@@ -2,8 +2,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Card, Form, Button, Row, Col, Badge, InputGroup } from 'react-bootstrap';
+import { Form, Button, Row, Col, Badge, InputGroup } from 'react-bootstrap';
 import { FiArrowLeft, FiPlus, FiTrash2, FiSave } from 'react-icons/fi';
+import Card from '@/components/Card';
 import { getMatchById, getTeamById } from '@/data/mock';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -116,7 +117,7 @@ export default function NewScorecardPage() {
                     </div>
                     <Row className="g-2 align-items-center">
                       <Col>
-                        <Form.Label className="small text-muted">{homeTeam?.name}</Form.Label>
+                        <Form.Label className="small text-subtle">{homeTeam?.name}</Form.Label>
                         <Form.Control
                           type="number"
                           min="0"
@@ -126,10 +127,10 @@ export default function NewScorecardPage() {
                         />
                       </Col>
                       <Col xs="auto" className="pt-4">
-                        <span className="fw-bold text-muted">-</span>
+                        <span className="fw-bold text-subtle">-</span>
                       </Col>
                       <Col>
-                        <Form.Label className="small text-muted">{awayTeam?.name}</Form.Label>
+                        <Form.Label className="small text-subtle">{awayTeam?.name}</Form.Label>
                         <Form.Control
                           type="number"
                           min="0"

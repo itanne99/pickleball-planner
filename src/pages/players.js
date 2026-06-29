@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Row, Col, Card, Button, Form, Dropdown } from 'react-bootstrap';
+import { Row, Col, Button, Form, Dropdown } from 'react-bootstrap';
 import { FiFilter, FiArrowUp, FiArrowDown } from 'react-icons/fi';
 import { mockPlayers } from '@/data/mock';
+import Card from '@/components/Card';
 import SearchBar from '@/components/SearchBar';
 import Paginator from '@/components/Paginator';
 import StatusBadge from '@/components/StatusBadge';

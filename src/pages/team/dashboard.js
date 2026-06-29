@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { mockTeams, mockLocations, mockDivisions } from '@/data/mock';
 import Card from '@/components/Card';
 import Pill from '@/components/Pill';
@@ -16,7 +16,7 @@ export default function TeamDashboard() {
       <Head>
         <title>Team Dashboard | Pickleball Planner</title>
       </Head>
-      <Container className="py-5">
+      <div className="py-2">
         <h1 className="fw-bold mb-5" style={{ color: 'var(--bs-primary)' }}>
           Teams
         </h1>
@@ -59,7 +59,7 @@ export default function TeamDashboard() {
             );
           })}
         </Row>
-      </Container>
+      </div>
     </>
   );
 }

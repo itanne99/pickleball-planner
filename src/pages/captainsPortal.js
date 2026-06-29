@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import { Container, Row, Col, Button, Table, Modal, Form } from 'react-bootstrap';
+import { Row, Col, Button, Modal, Form } from 'react-bootstrap';
 import { mockTeam, mockUser } from '@/data/mock';
 import Card from '@/components/Card';
 import Pill from '@/components/Pill';
 import Avatar from '@/components/Avatar';
+import DataTable from '@/components/DataTable';
 import { useToast } from '@/components/ToastProvider';
 
 export default function CaptainsPortal() {
@@ -47,12 +48,70 @@ export default function CaptainsPortal() {
     setDeletingUser(null);
   };
 
+  const columns = [
+    {
+      header: 'User',
+      render: (user) => (
+        <div className="d-flex align-items-center">
+          <div className="position-relative me-3">
+            <Avatar name={user.name} size={40} />
+            <span
+              className="status-dot"
+              style={{
+                position: 'absolute',
+                bottom: '0',
+                right: '0',
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: user.status === 'active' ? '#22C55E' : '#EF4444',
+                border: '2px solid #12141C'
+              }}
+            />
+          </div>
+          <div>
+            <div className="fw-bold" style={{ color: '#dce3f1' }}>{user.name}</div>
+            <div className="small text-subtle">{user.email || 'N/A'}</div>
+          </div>
+        </div>
+      )
+    },
+    {
+      header: 'Role',
+      render: (user) => (
+        <Pill variant={user.role === 'admin' ? 'secondary' : 'primary'}>
+          {user.role || 'player'}
+        </Pill>
+      )
+    },
+    {
+      header: 'Status',
+      render: (user) => (
+        <span className="text-subtle small">{user.status || 'active'}</span>
+      )
+    },
+    {
+      header: 'Actions',
+      align: 'right',
+      render: (user) => (
+        <>
+          <Button variant="primary" size="sm" className="me-2 fw-bold text-dark rounded-pill" onClick={() => openEdit(user)}>
+            Edit
+          </Button>
+          <Button variant="outline-danger" size="sm" className="fw-bold rounded-pill" onClick={() => openDelete(user)}>
+            Delete
+          </Button>
+        </>
+      )
+    }
+  ];
+
   return (
     <>
       <Head>
         <title>Captains Portal | Pickleball Planner</title>
       </Head>
-      <Container className="py-5">
+      <div className="py-2">
         <div className="d-flex justify-content-between align-items-center mb-5">
           <h1 className="fw-bold m-0" style={{ color: 'var(--bs-primary)' }}>
             Captains Portal
@@ -67,67 +126,8 @@ export default function CaptainsPortal() {
           </Button>
         </div>
 
-        <Card className="glass-panel overflow-hidden" variant="accent">
-          <div className="table-responsive">
-            <Table variant="dark" className="m-0 align-middle" hover style={{ backgroundColor: 'transparent' }}>
-              <thead>
-                <tr style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.15)' }}>
-                  <th className="py-3 px-4 border-0">USER</th>
-                  <th className="py-3 px-4 border-0">ROLE</th>
-                  <th className="py-3 px-4 border-0">STATUS</th>
-                  <th className="py-3 px-4 border-0 text-end">ACTIONS</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map(user => (
-                  <tr key={user.id} style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.08)' }}>
-                    <td className="py-3 px-4 border-0">
-                      <div className="d-flex align-items-center">
-                        <div className="position-relative me-3">
-                          <Avatar initials={user.name.charAt(0)} size={40} />
-                          <span
-                            className="status-dot"
-                            style={{
-                              position: 'absolute',
-                              bottom: '0',
-                              right: '0',
-                              width: '8px',
-                              height: '8px',
-                              borderRadius: '50%',
-                              backgroundColor: user.status === 'active' ? '#22C55E' : '#EF4444',
-                              border: '2px solid #12141C'
-                            }}
-                          />
-                        </div>
-                        <div>
-                          <div className="fw-bold" style={{ color: '#dce3f1' }}>{user.name}</div>
-                          <div className="small text-subtle">{user.email || 'N/A'}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 border-0">
-                      <Pill variant={user.role === 'admin' ? 'secondary' : 'primary'}>
-                        {user.role || 'player'}
-                      </Pill>
-                    </td>
-                    <td className="py-3 px-4 border-0">
-                      <span className="text-subtle small">{user.status || 'active'}</span>
-                    </td>
-                    <td className="py-3 px-4 border-0 text-end">
-                      <Button variant="primary" size="sm" className="me-2 fw-bold text-dark rounded-pill" onClick={() => openEdit(user)}>
-                        Edit
-                      </Button>
-                      <Button variant="outline-danger" size="sm" className="fw-bold rounded-pill" onClick={() => openDelete(user)}>
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </div>
-        </Card>
-      </Container>
+        <DataTable columns={columns} data={users} />
+      </div>
 
       {/* Edit Modal */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)} centered>

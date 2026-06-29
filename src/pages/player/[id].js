@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import Card from '../../components/Card';
 import PlayerCard from '../../components/PlayerCard';
@@ -18,7 +18,7 @@ export default function PlayerProfile() {
 
   return (
     <>
-      <Container className="py-4">
+      <div className="py-2">
         <Row className="mb-4">
           <Col>
             <button
@@ -71,7 +71,7 @@ export default function PlayerProfile() {
             </Col>
           </Row>
         </Card>
-      </Container>
+      </div>
     </>
   );
 }

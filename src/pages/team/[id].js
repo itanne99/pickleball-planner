@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { FiMapPin } from 'react-icons/fi';
 import Card from '../../components/Card';
 import Pill from '../../components/Pill';
@@ -17,7 +17,7 @@ export default function TeamProfile() {
 
   return (
     <>
-      <Container className="py-4">
+      <div className="py-2">
         <Row className="mb-4">
           <Col>
             <button
@@ -77,7 +77,7 @@ export default function TeamProfile() {
             </Col>
           ))}
         </Row>
-      </Container>
+      </div>
     </>
   );
 }

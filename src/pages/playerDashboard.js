@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { mockUser, mockSchedule } from '@/data/mock';
 import Card from '@/components/Card';
 import Pill from '@/components/Pill';
@@ -17,7 +17,7 @@ export default function PlayerDashboard() {
       <Head>
         <title>Pickleball Planner | Dashboard</title>
       </Head>
-      <Container className="py-5">
+      <div className="py-2">
         {/* Hero Card */}
         <Card className="p-4 mb-5" variant="accent">
           <Row className="align-items-center">
@@ -76,7 +76,7 @@ export default function PlayerDashboard() {
             </Col>
           ))}
         </Row>
-      </Container>
+      </div>
     </>
   );
 }

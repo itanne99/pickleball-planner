@@ -53,8 +53,8 @@ export default function Layout({ children }) {
           </Container>
         </Navbar>
       )}
-      <main className="py-4">
-        <Container>{children}</Container>
+      <main className={isShowNav ? "py-4" : ""}>
+        {isShowNav ? <Container>{children}</Container> : children}
       </main>
     </div>
   );

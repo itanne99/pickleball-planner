@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import { mockLeagues, mockDivisions } from '@/data/mock';
 import Card from '@/components/Card';
 import Pill from '@/components/Pill';
@@ -27,7 +27,7 @@ export default function LeaguePage() {
       <Head>
         <title>League | Pickleball Planner</title>
       </Head>
-      <Container className="py-5">
+      <div className="py-2">
         <div className="d-flex justify-content-between align-items-center mb-5">
           <h1 className="fw-bold m-0" style={{ color: 'var(--bs-primary)' }}>
             League
@@ -94,7 +94,7 @@ export default function LeaguePage() {
             </Col>
           </Row>
         )}
-      </Container>
+      </div>
     </>
   );
 }

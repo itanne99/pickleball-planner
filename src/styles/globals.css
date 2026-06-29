@@ -296,3 +296,22 @@ body.light-theme .dropdown-item:focus {
 .table-dark td {
   color: #dce3f1 !important;
 }
+
+.data-table-row {
+  transition: background-color 0.15s ease;
+}
+
+.data-table-row:hover {
+  background-color: rgba(0, 229, 255, 0.04) !important;
+}
+
+.data-table-row td {
+  border-left: 3px solid transparent;
+  transition: border-left-color 0.15s ease;
+}
+
+.data-table-row:hover td:first-child {
+  border-left-color: #00E5FF !important;
+}
+
+

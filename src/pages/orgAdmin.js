@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import { useState, useCallback, useEffect } from 'react';
-import { Row, Col, Card, Table, Button, Modal, Form, Tabs, Tab, Badge } from 'react-bootstrap';
+import { Row, Col, Card, Button, Modal, Form, Tabs, Tab, Badge } from 'react-bootstrap';
 import { FiPlus, FiEdit2, FiTrash2 } from 'react-icons/fi';
+import DataTable from '@/components/DataTable';
 import { mockLeagues, mockDivisions, mockLocations, mockPlayers, mockTeams, mockUsers } from '@/data/mock';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -95,47 +96,54 @@ function TeamsTab() {
     setDeleteTarget(null);
   };
 
+  const columns = [
+    {
+      header: 'Team',
+      render: (team) => (
+        <div className="d-flex align-items-center gap-2">
+          <Avatar name={team.name} size="sm" />
+          <span className="fw-semibold" style={{ color: '#dce3f1' }}>{team.name}</span>
+        </div>
+      )
+    },
+    {
+      header: 'Location',
+      render: (team) => {
+        const loc = locations.find(l => l.id === team.locationId);
+        return <span className="text-subtle">{loc?.name || 'Unassigned'}</span>;
+      }
+    },
+    {
+      header: 'Players',
+      render: (team) => <span className="text-subtle">{team.playerIds.length} players</span>
+    },
+    {
+      header: 'Record',
+      render: (team) => <span className="text-subtle">{team.wins}-{team.losses}</span>
+    },
+    {
+      header: 'Status',
+      render: (team) => <StatusBadge status={team.status} />
+    },
+    {
+      header: 'Actions',
+      align: 'right',
+      render: (team) => (
+        <>
+          <Button variant="outline-primary" size="sm" className="me-1" onClick={() => openEdit(team)}><FiEdit2 size={14} /></Button>
+          <Button variant="outline-danger" size="sm" onClick={() => { setDeleteTarget(team); setShowDelete(true); }}><FiTrash2 size={14} /></Button>
+        </>
+      )
+    }
+  ];
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="mb-0" style={{ color: '#dce3f1' }}>Teams ({teams.length})</h5>
         <Button variant="primary" size="sm" onClick={openAdd}><FiPlus className="me-1" /> Add Team</Button>
       </div>
-      <Table hover variant="dark" className="mb-0">
-        <thead>
-          <tr style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.15)' }}>
-            <th style={{ color: '#dce3f1' }}>Team</th>
-            <th style={{ color: '#dce3f1' }}>Location</th>
-            <th style={{ color: '#dce3f1' }}>Players</th>
-            <th style={{ color: '#dce3f1' }}>Record</th>
-            <th style={{ color: '#dce3f1' }}>Status</th>
-            <th className="text-end" style={{ color: '#dce3f1' }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teams.map(team => {
-            const loc = locations.find(l => l.id === team.locationId);
-            return (
-              <tr key={team.id} style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.08)' }}>
-                <td>
-                  <div className="d-flex align-items-center gap-2">
-                    <Avatar name={team.name} size="sm" />
-                    <span className="fw-semibold" style={{ color: '#dce3f1' }}>{team.name}</span>
-                  </div>
-                </td>
-                <td className="text-subtle">{loc?.name || 'Unassigned'}</td>
-                <td className="text-subtle">{team.playerIds.length} players</td>
-                <td className="text-subtle">{team.wins}-{team.losses}</td>
-                <td><StatusBadge status={team.status} /></td>
-                <td className="text-end">
-                  <Button variant="outline-primary" size="sm" className="me-1" onClick={() => openEdit(team)}><FiEdit2 size={14} /></Button>
-                  <Button variant="outline-danger" size="sm" onClick={() => { setDeleteTarget(team); setShowDelete(true); }}><FiTrash2 size={14} /></Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <DataTable columns={columns} data={teams} />
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton className="bg-dark border-secondary">
@@ -217,46 +225,55 @@ function PlayersTab() {
     setDeleteTarget(null);
   };
 
+  const columns = [
+    {
+      header: 'Player',
+      render: (player) => (
+        <div className="d-flex align-items-center gap-2">
+          <Avatar name={player.name} size="sm" />
+          <span className="fw-semibold" style={{ color: '#dce3f1' }}>{player.name}</span>
+        </div>
+      )
+    },
+    {
+      header: 'Email',
+      render: (player) => <span className="text-subtle">{player.email}</span>
+    },
+    {
+      header: 'Phone',
+      render: (player) => <span className="text-subtle">{player.phone}</span>
+    },
+    {
+      header: 'DUPR',
+      render: (player) => <Badge bg="primary">{player.dupr.toFixed(1)}</Badge>
+    },
+    {
+      header: 'Record',
+      render: (player) => <span className="text-subtle">{player.wins}-{player.losses}</span>
+    },
+    {
+      header: 'Status',
+      render: (player) => <StatusBadge status={player.status} />
+    },
+    {
+      header: 'Actions',
+      align: 'right',
+      render: (player) => (
+        <>
+          <Button variant="outline-primary" size="sm" className="me-1" onClick={() => openEdit(player)}><FiEdit2 size={14} /></Button>
+          <Button variant="outline-danger" size="sm" onClick={() => { setDeleteTarget(player); setShowDelete(true); }}><FiTrash2 size={14} /></Button>
+        </>
+      )
+    }
+  ];
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="mb-0" style={{ color: '#dce3f1' }}>Players ({players.length})</h5>
         <Button variant="primary" size="sm" onClick={openAdd}><FiPlus className="me-1" /> Add Player</Button>
       </div>
-      <Table hover variant="dark" className="mb-0">
-        <thead>
-          <tr style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.15)' }}>
-            <th style={{ color: '#dce3f1' }}>Player</th>
-            <th style={{ color: '#dce3f1' }}>Email</th>
-            <th style={{ color: '#dce3f1' }}>Phone</th>
-            <th style={{ color: '#dce3f1' }}>DUPR</th>
-            <th style={{ color: '#dce3f1' }}>Record</th>
-            <th style={{ color: '#dce3f1' }}>Status</th>
-            <th className="text-end" style={{ color: '#dce3f1' }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {players.map(player => (
-            <tr key={player.id} style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.08)' }}>
-              <td>
-                <div className="d-flex align-items-center gap-2">
-                  <Avatar name={player.name} size="sm" />
-                  <span className="fw-semibold" style={{ color: '#dce3f1' }}>{player.name}</span>
-                </div>
-              </td>
-              <td className="text-subtle">{player.email}</td>
-              <td className="text-subtle">{player.phone}</td>
-              <td><Badge bg="primary">{player.dupr.toFixed(1)}</Badge></td>
-              <td className="text-subtle">{player.wins}-{player.losses}</td>
-              <td><StatusBadge status={player.status} /></td>
-              <td className="text-end">
-                <Button variant="outline-primary" size="sm" className="me-1" onClick={() => openEdit(player)}><FiEdit2 size={14} /></Button>
-                <Button variant="outline-danger" size="sm" onClick={() => { setDeleteTarget(player); setShowDelete(true); }}><FiTrash2 size={14} /></Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <DataTable columns={columns} data={players} />
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton className="bg-dark border-secondary">
@@ -332,42 +349,47 @@ function LocationsTab() {
     setDeleteTarget(null);
   };
 
+  const columns = [
+    {
+      header: 'Location',
+      render: (loc) => (
+        <div className="d-flex align-items-center gap-2">
+          <Avatar name={loc.name} size="sm" />
+          <span className="fw-semibold" style={{ color: '#dce3f1' }}>{loc.name}</span>
+        </div>
+      )
+    },
+    {
+      header: 'Address',
+      render: (loc) => <span className="text-subtle">{loc.address}</span>
+    },
+    {
+      header: 'Courts',
+      render: (loc) => <Badge bg="info">{loc.courts}</Badge>
+    },
+    {
+      header: 'Hours',
+      render: (loc) => <span className="text-subtle small">{loc.hours}</span>
+    },
+    {
+      header: 'Actions',
+      align: 'right',
+      render: (loc) => (
+        <>
+          <Button variant="outline-primary" size="sm" className="me-1" onClick={() => openEdit(loc)}><FiEdit2 size={14} /></Button>
+          <Button variant="outline-danger" size="sm" onClick={() => { setDeleteTarget(loc); setShowDelete(true); }}><FiTrash2 size={14} /></Button>
+        </>
+      )
+    }
+  ];
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="mb-0" style={{ color: '#dce3f1' }}>Locations ({locations.length})</h5>
         <Button variant="primary" size="sm" onClick={openAdd}><FiPlus className="me-1" /> Add Location</Button>
       </div>
-      <Table hover variant="dark" className="mb-0">
-        <thead>
-          <tr style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.15)' }}>
-            <th style={{ color: '#dce3f1' }}>Location</th>
-            <th style={{ color: '#dce3f1' }}>Address</th>
-            <th style={{ color: '#dce3f1' }}>Courts</th>
-            <th style={{ color: '#dce3f1' }}>Hours</th>
-            <th className="text-end" style={{ color: '#dce3f1' }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {locations.map(loc => (
-            <tr key={loc.id} style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.08)' }}>
-              <td>
-                <div className="d-flex align-items-center gap-2">
-                  <Avatar name={loc.name} size="sm" />
-                  <span className="fw-semibold" style={{ color: '#dce3f1' }}>{loc.name}</span>
-                </div>
-              </td>
-              <td className="text-subtle">{loc.address}</td>
-              <td><Badge bg="info">{loc.courts}</Badge></td>
-              <td className="text-subtle small">{loc.hours}</td>
-              <td className="text-end">
-                <Button variant="outline-primary" size="sm" className="me-1" onClick={() => openEdit(loc)}><FiEdit2 size={14} /></Button>
-                <Button variant="outline-danger" size="sm" onClick={() => { setDeleteTarget(loc); setShowDelete(true); }}><FiTrash2 size={14} /></Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <DataTable columns={columns} data={locations} />
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton className="bg-dark border-secondary">
@@ -458,40 +480,67 @@ function LeaguesTab() {
     );
   };
 
+  const columns = [
+    {
+      header: 'League',
+      render: (league) => <span className="fw-semibold" style={{ color: '#dce3f1' }}>{league.name}</span>
+    },
+    {
+      header: 'Season',
+      render: (league) => <Badge bg="primary">{league.seasonName}</Badge>
+    },
+    {
+      header: 'Duration',
+      render: (league) => <span className="text-subtle small">{league.startDate} → {league.endDate}</span>
+    },
+    {
+      header: 'Status',
+      render: (league) => {
+        const status = getLeagueStatus(league);
+        return <StatusBadge status={status} />;
+      }
+    },
+    {
+      header: 'Actions',
+      align: 'right',
+      render: (league) => (
+        <>
+          <Button variant="outline-primary" size="sm" className="me-1" onClick={() => openEdit(league)}><FiEdit2 size={14} /></Button>
+          <Button variant="outline-danger" size="sm" onClick={() => { setDeleteTarget(league); setShowDelete(true); }}><FiTrash2 size={14} /></Button>
+        </>
+      )
+    }
+  ];
+
+  const teamSelectionColumns = [
+    {
+      header: 'Select',
+      render: (team) => (
+        <Form.Check
+          type="checkbox"
+          checked={selectedTeamIds.includes(team.id)}
+          onChange={() => {}}
+          style={{ accentColor: '#00E5FF' }}
+        />
+      )
+    },
+    {
+      header: 'Team',
+      render: (team) => <span className="text-subtle">{team.name}</span>
+    },
+    {
+      header: 'Status',
+      render: (team) => <StatusBadge status={team.status} />
+    }
+  ];
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="mb-0" style={{ color: '#dce3f1' }}>Leagues ({leagues.length})</h5>
         <Button variant="primary" size="sm" onClick={openAdd}><FiPlus className="me-1" /> Add League</Button>
       </div>
-      <Table hover variant="dark" className="mb-0">
-        <thead>
-          <tr style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.15)' }}>
-            <th style={{ color: '#dce3f1' }}>League</th>
-            <th style={{ color: '#dce3f1' }}>Season</th>
-            <th style={{ color: '#dce3f1' }}>Duration</th>
-            <th style={{ color: '#dce3f1' }}>Status</th>
-            <th className="text-end" style={{ color: '#dce3f1' }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leagues.map(league => {
-            const status = getLeagueStatus(league);
-            return (
-              <tr key={league.id} style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.08)' }}>
-                <td className="fw-semibold" style={{ color: '#dce3f1' }}>{league.name}</td>
-                <td><Badge bg="primary">{league.seasonName}</Badge></td>
-                <td className="text-subtle small">{league.startDate} → {league.endDate}</td>
-                <td><StatusBadge status={status} /></td>
-                <td className="text-end">
-                  <Button variant="outline-primary" size="sm" className="me-1" onClick={() => openEdit(league)}><FiEdit2 size={14} /></Button>
-                  <Button variant="outline-danger" size="sm" onClick={() => { setDeleteTarget(league); setShowDelete(true); }}><FiTrash2 size={14} /></Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <DataTable columns={columns} data={leagues} />
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered size="lg">
         <Modal.Header closeButton className="bg-dark border-secondary">
@@ -534,31 +583,13 @@ function LeaguesTab() {
             <Tab eventKey="teams" title="Teams">
               <div className="pt-3">
                 <p className="text-subtle small mb-3">Select teams participating in this league:</p>
-                <Table hover variant="dark" size="sm">
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.15)' }}>
-                      <th style={{ color: '#dce3f1' }}>Select</th>
-                      <th style={{ color: '#dce3f1' }}>Team</th>
-                      <th style={{ color: '#dce3f1' }}>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {mockTeams.filter(t => t.status === 'active').map(team => (
-                      <tr key={team.id} style={{ borderBottom: '1px solid rgba(0, 229, 255, 0.08)', cursor: 'pointer' }} onClick={() => toggleTeam(team.id)}>
-                        <td>
-                          <Form.Check
-                            type="checkbox"
-                            checked={selectedTeamIds.includes(team.id)}
-                            onChange={() => {}}
-                            style={{ accentColor: '#00E5FF' }}
-                          />
-                        </td>
-                        <td className="text-subtle">{team.name}</td>
-                        <td><StatusBadge status={team.status} /></td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                <DataTable
+                  columns={teamSelectionColumns}
+                  data={mockTeams.filter(t => t.status === 'active')}
+                  noFrame
+                  compact
+                  onRowClick={(team) => toggleTeam(team.id)}
+                />
               </div>
             </Tab>
           </Tabs>

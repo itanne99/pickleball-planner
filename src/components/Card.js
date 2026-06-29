@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card as BSCard } from 'react-bootstrap';
 
 export default function Card({ children, className = '', style = {}, interactive = false, variant = 'default', ...props }) {
   const borderMap = {
@@ -28,3 +29,10 @@ export default function Card({ children, className = '', style = {}, interactive
     </div>
   );
 }
+
+// Attach Bootstrap card subcomponents for compatibility
+Card.Body = BSCard.Body;
+Card.Header = BSCard.Header;
+Card.Title = BSCard.Title;
+Card.Text = BSCard.Text;
+Card.Footer = BSCard.Footer;

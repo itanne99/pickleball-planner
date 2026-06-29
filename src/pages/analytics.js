@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Row, Col, Card, Table } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, PieChart, Pie, Cell, Legend,
@@ -9,6 +9,7 @@ import { FiTrendingUp, FiUsers, FiAward, FiCalendar } from 'react-icons/fi';
 import { mockAnalyticsData, mockAdminKpis, mockPlayers } from '@/data/mock';
 import SectionHeader from '@/components/SectionHeader';
 import StatCard from '@/components/StatCard';
+import DataTable from '@/components/DataTable';
 
 const COLORS = ['#00E5FF', '#FF4081', '#7C4DFF', '#FFD740', '#69F0AE'];
 
@@ -56,6 +57,45 @@ export default function AnalyticsPage() {
   const duprDistribution = mockAnalyticsData?.duprDistribution || defaultDuprDistribution;
   const topPlayers = mockAnalyticsData?.topPlayers || defaultTopPlayers;
   const participationByDay = mockAnalyticsData?.participationByDay || defaultParticipationByDay;
+  const columns = [
+    {
+      header: '#',
+      width: '60px',
+      render: (p, idx) => (
+        idx === 0 ? (
+          <span className="badge rounded-circle bg-warning text-dark d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>1</span>
+        ) : idx === 1 ? (
+          <span className="badge rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>2</span>
+        ) : idx === 2 ? (
+          <span className="badge rounded-circle bg-danger text-white d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>3</span>
+        ) : (
+          <span className="ps-2">{idx + 1}</span>
+        )
+      )
+    },
+    {
+      header: 'Player',
+      render: (p) => (
+        <Link href={`/player/${p.playerId}`} className="text-decoration-none" style={{ color: '#dce3f1' }}>
+          {p.name}
+        </Link>
+      )
+    },
+    {
+      header: 'DUPR',
+      render: (p) => (
+        <span className="fw-bold" style={{ color: '#00E5FF' }}>{p.dupr.toFixed(1)}</span>
+      )
+    },
+    {
+      header: 'Record',
+      render: (p) => `${p.wins}-${p.losses}`
+    },
+    {
+      header: 'Win %',
+      render: (p) => `${p.winRate}%`
+    }
+  ];
 
   return (
     <>
@@ -163,42 +203,7 @@ export default function AnalyticsPage() {
               <Card.Title className="mb-0" style={{ color: '#dce3f1' }}>Top Players Leaderboard</Card.Title>
             </Card.Header>
             <Card.Body className="p-0">
-              <Table striped hover variant="dark" className="mb-0">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Player</th>
-                    <th>DUPR</th>
-                    <th>Record</th>
-                    <th>Win %</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {topPlayers.map((p, idx) => (
-                    <tr key={p.playerId} className="align-middle">
-                      <td>
-                        {idx === 0 ? (
-                          <span className="badge rounded-circle bg-warning text-dark d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>1</span>
-                        ) : idx === 1 ? (
-                          <span className="badge rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>2</span>
-                        ) : idx === 2 ? (
-                          <span className="badge rounded-circle bg-danger text-white d-inline-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px', fontSize: '0.75rem', fontWeight: 'bold' }}>3</span>
-                        ) : (
-                          <span className="ps-2">{idx + 1}</span>
-                        )}
-                      </td>
-                      <td>
-                        <Link href={`/player/${p.playerId}`} className="text-decoration-none" style={{ color: '#dce3f1' }}>
-                          {p.name}
-                        </Link>
-                      </td>
-                      <td><span className="fw-bold" style={{ color: '#00E5FF' }}>{p.dupr.toFixed(1)}</span></td>
-                      <td>{p.wins}-{p.losses}</td>
-                      <td>{p.winRate}%</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
+              <DataTable columns={columns} data={topPlayers} noFrame />
             </Card.Body>
           </Card>
         </Col>
