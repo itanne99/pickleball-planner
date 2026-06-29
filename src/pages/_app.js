@@ -5,17 +5,19 @@ import { useEffect } from 'react';
 import Layout from '@/components/Layout';
 import Footer from '@/components/Footer';
 import { ToastProvider } from '@/components/ToastProvider';
+import { Agentation } from 'agentation';
 
 const lexend = Lexend({ subsets: ['latin'], variable: '--font-lexend' });
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     if (typeof window === 'undefined') {
-    	return;
+      return;
     }
 
     const storedTheme = localStorage.getItem('theme');
-    document.body.classList.toggle('light-theme', storedTheme === 'light');
+    document.body.classList.toggle('light-theme', storedTheme === 'light');
+
   }, []);
 
   return (
@@ -26,6 +28,7 @@ export default function App({ Component, pageProps }) {
         </Layout>
         <Footer />
       </ToastProvider>
+      <Agentation />
     </div>
   );
 }
