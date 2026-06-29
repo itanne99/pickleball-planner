@@ -5,6 +5,7 @@ import { Row, Col, Form } from 'react-bootstrap';
 import { mockLeagues, mockDivisions } from '@/data/mock';
 import Card from '@/components/Card';
 import Pill from '@/components/Pill';
+import LeagueCalendar from '@/components/LeagueCalendar';
 
 export default function LeaguePage() {
   const router = useRouter();
@@ -54,15 +55,8 @@ export default function LeaguePage() {
                   Season
                 </h5>
                 <h3 className="fw-bold mb-3" style={{ color: '#dce3f1' }}>{selectedLeague.name}</h3>
-                <Pill variant="primary" className="mb-3 align-self-start">{selectedLeague.seasonName}</Pill>
-                <div className="mt-3 text-subtle" style={{ fontSize: '0.9rem' }}>
-                  <div className="mb-1">
-                    <span className="fw-bold" style={{ color: '#dce3f1' }}>Start:</span> {selectedLeague.startDate}
-                  </div>
-                  <div>
-                    <span className="fw-bold" style={{ color: '#dce3f1' }}>End:</span> {selectedLeague.endDate}
-                  </div>
-                </div>
+                <Pill variant="primary" className="mb-4 align-self-start">{selectedLeague.seasonName}</Pill>
+                <LeagueCalendar startDateStr={selectedLeague.startDate} endDateStr={selectedLeague.endDate} />
               </Card>
             </Col>
 
