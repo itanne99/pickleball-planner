@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FiBell, FiCalendar, FiUsers, FiAward, FiSettings, FiBarChart2, FiUser, FiHome } from 'react-icons/fi';
 import { mockNotifications, mockLeagues, mockDivisions } from '@/data/mock';
+import Footer from '@/components/Footer';
 
 const navLinks = [
   { href: '/playerDashboard', label: 'Dashboard', icon: <FiHome /> },
@@ -21,7 +22,7 @@ export default function Layout({ children }) {
   const notifications = mockNotifications.filter(n => !n.read);
 
   return (
-    <div style={{ backgroundColor: '#050505', minHeight: '100vh', color: '#fff' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#050505', color: '#fff' }}>
       {isShowNav && (
         <Navbar variant="dark" bg="dark" expand="lg" className="border-bottom border-secondary">
           <Container>
@@ -53,9 +54,10 @@ export default function Layout({ children }) {
           </Container>
         </Navbar>
       )}
-      <main className={isShowNav ? "py-4" : ""}>
+      <main className={isShowNav ? "py-4" : ""} style={{ flex: 1 }}>
         {isShowNav ? <Container>{children}</Container> : children}
       </main>
+      <Footer />
     </div>
   );
 }

@@ -3,7 +3,6 @@ import "@/styles/globals.css";
 import { Lexend } from "next/font/google";
 import { useEffect } from 'react';
 import Layout from '@/components/Layout';
-import Footer from '@/components/Footer';
 import { ToastProvider } from '@/components/ToastProvider';
 import { Agentation } from 'agentation';
 
@@ -26,7 +25,6 @@ export default function App({ Component, pageProps }) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
-        <Footer />
       </ToastProvider>
       <Agentation />
     </div>
