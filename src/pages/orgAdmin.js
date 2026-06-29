@@ -16,7 +16,7 @@ const playerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email format'),
   phone: z.string().min(7, 'Phone must be at least 7 characters'),
-  dupr: z.coerce.number().min(2.0, 'DUPR must be between 2.0-8.0').max(8.0, 'DUPR must be between 2.0-8.0'),
+  dupr: z.coerce.number().min(2, 'DUPR must be between 2.0-8.0').max(8, 'DUPR must be between 2.0-8.0'),
 });
 
 const teamSchema = z.object({
@@ -81,7 +81,7 @@ function TeamsTab() {
       setTeams(prev => prev.map(t => t.id === editing.id ? { ...t, ...data } : t));
       addToast(`Team "${data.name}" updated`, 'success');
     } else {
-      const newTeam = { ...data, id: `t${Date.now()}`, captainId: '', playerIds: [], wins: 0, losses: 0, pointsFor: 0, pointsAgainst: 0, streak: '-', createdAt: new Date().toISOString().split('T')[0], logo: null };
+      const newTeam = { ...data, id: `t${Date.now()}`, captainId: '', playerIds: [], wins: 0, losses: 0, pointsFor: 0, pointsAgainst: 0, streak: '-', createdAt: new Date().toISOString().split('T', 1)[0], logo: null };
       setTeams(prev => [...prev, newTeam]);
       addToast(`Team "${data.name}" created`, 'success');
     }
@@ -192,10 +192,10 @@ function PlayersTab() {
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: zodResolver(playerSchema),
-    defaultValues: { name: '', email: '', phone: '', dupr: 3.0 },
+    defaultValues: { name: '', email: '', phone: '', dupr: 3 },
   });
 
-  const openAdd = () => { setEditing(null); reset({ name: '', email: '', phone: '', dupr: 3.0 }); setShowModal(true); };
+  const openAdd = () => { setEditing(null); reset({ name: '', email: '', phone: '', dupr: 3 }); setShowModal(true); };
   const openEdit = (player) => { setEditing(player); reset({ name: player.name, email: player.email, phone: player.phone, dupr: player.dupr }); setShowModal(true); };
 
   const onSubmit = (data) => {
@@ -203,7 +203,7 @@ function PlayersTab() {
       setPlayers(prev => prev.map(p => p.id === editing.id ? { ...p, ...data } : p));
       addToast(`Player "${data.name}" updated`, 'success');
     } else {
-      const newPlayer = { ...data, id: `p${Date.now()}`, status: 'active', joinDate: new Date().toISOString().split('T')[0], wins: 0, losses: 0, matchesPlayed: 0, winRate: 0, teamId: null, avatar: null };
+      const newPlayer = { ...data, id: `p${Date.now()}`, status: 'active', joinDate: new Date().toISOString().split('T', 1)[0], wins: 0, losses: 0, matchesPlayed: 0, winRate: 0, teamId: null, avatar: null };
       setPlayers(prev => [...prev, newPlayer]);
       addToast(`Player "${data.name}" created`, 'success');
     }

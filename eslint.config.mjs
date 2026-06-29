@@ -21,6 +21,29 @@ const eslintConfig = defineConfig([
       "unicorn/logical-assignment-operators": "off",
     },
   },
+  {
+    files: ["src/components/**/*.{js,jsx,ts,tsx}"],
+    rules: {
+      "unicorn/filename-case": [
+        "error",
+        {
+          case: "pascalCase",
+          ignore: ["^src$", "^components$"],
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/pages/**/*.{js,jsx,ts,tsx}"],
+    rules: {
+      "unicorn/filename-case": [
+        "error",
+        {
+          case: "camelCase",
+        },
+      ],
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

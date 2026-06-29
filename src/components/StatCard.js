@@ -1,7 +1,7 @@
 import { Card } from 'react-bootstrap';
 
 export default function StatCard({ title, value, icon, subtitle, trend }) {
-  const trendColor = trend?.startsWith('+') ? 'text-success' : trend?.startsWith('-') ? 'text-danger' : '';
+  const trendColor = trend?.startsWith('+') ? 'text-success' : (trend?.startsWith('-') ? 'text-danger' : '');
 
   return (
     <Card className="glass-panel border-0 h-100">

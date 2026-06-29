@@ -11,18 +11,18 @@ const navLinks = [
   { href: '/team/dashboard', label: 'Teams', icon: <FiUsers /> },
   { href: '/schedule', label: 'Schedule', icon: <FiCalendar /> },
   { href: '/analytics', label: 'Analytics', icon: <FiBarChart2 /> },
-  { href: '/captains-portal', label: 'Captains Portal', icon: <FiSettings /> },
+  { href: '/captainsPortal', label: 'Captains Portal', icon: <FiSettings /> },
   { href: '/orgAdmin', label: 'Org Admin', icon: <FiSettings /> },
 ];
 
 export default function Layout({ children }) {
   const { pathname } = useRouter();
-  const showNav = pathname !== '/';
+  const isShowNav = pathname !== '/';
   const notifications = mockNotifications.filter(n => !n.read);
 
   return (
     <div style={{ backgroundColor: '#050505', minHeight: '100vh', color: '#fff' }}>
-      {showNav && (
+      {isShowNav && (
         <Navbar variant="dark" bg="dark" expand="lg" className="border-bottom border-secondary">
           <Container>
             <Navbar.Brand as={Link} href="/" className="fw-bold">

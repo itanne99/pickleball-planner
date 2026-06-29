@@ -144,7 +144,7 @@ export default function ScorecardPage() {
             </Card>
           )}
         </>
-      ) : match.status === 'scheduled' ? (
+      ) : (match.status === 'scheduled' ? (
         <Card className="glass-panel border-0 text-center py-5">
           <Card.Body>
             <FiPending size={48} className="text-muted mb-3" />
@@ -155,7 +155,7 @@ export default function ScorecardPage() {
             </Link>
           </Card.Body>
         </Card>
-      ) : null}
+      ) : null)}
     </>
   );
 }

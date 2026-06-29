@@ -20,7 +20,7 @@ export default function Custom500() {
             <Button as={Link} href="/" variant="primary" size="lg">
               Go Home
             </Button>
-            <Button onClick={() => window.location.reload()} variant="outline-primary" size="lg">
+            <Button onClick={() => location.reload()} variant="outline-primary" size="lg">
               Refresh Page
             </Button>
           </div>

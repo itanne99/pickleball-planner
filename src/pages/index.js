@@ -72,7 +72,7 @@ export default function Home() {
               variant="outline-neon"
               size="lg"
               className="rounded-pill px-5 py-3 fw-bold"
-              onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.querySelector('#features')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore Features
             </Button>

@@ -46,7 +46,7 @@ export default function TeamProfile() {
               </div>
             )}
             <div className="text-subtle small">
-              {(foundTeam.playerIds?.length || foundTeam.members?.length || 0)} player{(foundTeam.playerIds?.length || foundTeam.members?.length || 0) !== 1 ? 's' : ''}
+              {(foundTeam.playerIds?.length || foundTeam.members?.length || 0)} player{(foundTeam.playerIds?.length || foundTeam.members?.length || 0) === 1 ? '' : 's'}
             </div>
           </div>
         </Card>

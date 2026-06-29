@@ -8,7 +8,7 @@ export default function PlayerCard({ player, winCount, lossCount, avatarSize = 6
     return name.split(' ').map((n) => n[0]).join('');
   };
 
-  const statusColor = player.status === 'active' ? '#22C55E' : player.status === 'away' ? '#F59E0B' : '#EF4444';
+  const statusColor = player.status === 'active' ? '#22C55E' : (player.status === 'away' ? '#F59E0B' : '#EF4444');
 
   const cardStyle = onClick
     ? { cursor: 'pointer', transition: 'border-color 0.2s, box-shadow 0.2s' }

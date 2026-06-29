@@ -52,7 +52,7 @@ export default function TeamDashboard() {
                   </div>
 
                   <div className="mt-2 text-subtle small">
-                    {(team.playerIds?.length || 0)} player{(team.playerIds?.length || 0) !== 1 ? 's' : ''}
+                    {(team.playerIds?.length || 0)} player{(team.playerIds?.length || 0) === 1 ? '' : 's'}
                   </div>
                 </Card>
               </Col>

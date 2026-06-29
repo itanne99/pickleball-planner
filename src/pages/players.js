@@ -81,7 +81,7 @@ export default function PlayersPage() {
 
       <SectionHeader
         title="Players"
-        subtitle={`${filtered.length} player${filtered.length !== 1 ? 's' : ''} found`}
+        subtitle={`${filtered.length} player${filtered.length === 1 ? '' : 's'} found`}
       />
 
       <Card className="glass-panel border-0 mb-4">

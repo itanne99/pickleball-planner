@@ -10,14 +10,12 @@ const lexend = Lexend({ subsets: ['latin'], variable: '--font-lexend' });
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedTheme = localStorage.getItem('theme');
-      if (storedTheme === 'light') {
-        document.body.classList.add('light-theme');
-      } else {
-        document.body.classList.remove('light-theme');
-      }
+    if (typeof window === 'undefined') {
+    	return;
     }
+
+    const storedTheme = localStorage.getItem('theme');
+    document.body.classList.toggle('light-theme', storedTheme === 'light');
   }, []);
 
   return (

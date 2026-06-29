@@ -40,7 +40,7 @@ export default function NotificationsPage() {
 
       <SectionHeader
         title="Notifications"
-        subtitle={`${unreadCount} unread notification${unreadCount !== 1 ? 's' : ''}`}
+        subtitle={`${unreadCount} unread notification${unreadCount === 1 ? '' : 's'}`}
         action={
           unreadCount > 0 && (
             <Button variant="outline-primary" size="sm" onClick={markAllRead}>
@@ -61,7 +61,7 @@ export default function NotificationsPage() {
           {filtered.map(n => (
             <ListGroup.Item
               key={n.id}
-              className={`bg-transparent border-bottom border-secondary ${!n.read ? 'bg-dark-subtle' : ''}`}
+              className={`bg-transparent border-bottom border-secondary ${n.read ? '' : 'bg-dark-subtle'}`}
               onClick={() => markRead(n.id)}
               style={{ cursor: 'pointer' }}
             >

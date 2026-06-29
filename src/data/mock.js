@@ -41,7 +41,7 @@ export const mockPlayers = [
   { id: 'p2', name: 'John Smith', email: 'john@example.com', phone: '555-0102', dupr: 3.8, wins: 22, losses: 18, status: 'active' },
   { id: 'p3', name: 'Sarah Lee', email: 'sarah@example.com', phone: '555-0103', dupr: 4.5, wins: 35, losses: 10, status: 'active' },
   { id: 'p4', name: 'Mike Chen', email: 'mike@example.com', phone: '555-0104', dupr: 3.2, wins: 15, losses: 25, status: 'inactive' },
-  { id: 'p5', name: 'Lisa Park', email: 'lisa@example.com', phone: '555-0105', dupr: 4.0, wins: 20, losses: 20, status: 'active' }
+  { id: 'p5', name: 'Lisa Park', email: 'lisa@example.com', phone: '555-0105', dupr: 4, wins: 20, losses: 20, status: 'active' }
 ];
 
 export const mockTeams = [
