@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { Row, Col, Form } from 'react-bootstrap';
 import { mockLeagues, mockDivisions } from '@/data/mock';
 import Card from '@/components/Card';
@@ -70,17 +71,23 @@ export default function LeaguePage() {
                 ) : (
                   <div className="d-flex flex-column gap-3">
                     {divisions.map(division => (
-                      <Card
+                      <Link
                         key={division.id}
-                        className="p-3"
-                        variant="muted"
-                        interactive
+                        href={`/division/${division.id}`}
+                        passHref
+                        style={{ textDecoration: 'none' }}
                       >
-                        <div className="d-flex justify-content-between align-items-center">
-                          <span className="fw-bold" style={{ color: '#dce3f1' }}>{division.name}</span>
-                          <Pill variant="secondary">{division.id.split('-', 1)[0].toUpperCase()}</Pill>
-                        </div>
-                      </Card>
+                        <Card
+                          className="p-3"
+                          variant="muted"
+                          interactive
+                        >
+                          <div className="d-flex justify-content-between align-items-center">
+                            <span className="fw-bold" style={{ color: '#dce3f1' }}>{division.name}</span>
+                            <Pill variant="secondary">{division.id.split('-', 1)[0].toUpperCase()}</Pill>
+                          </div>
+                        </Card>
+                      </Link>
                     ))}
                   </div>
                 )}
