@@ -227,9 +227,17 @@ body.light-theme .dropdown-item:focus {
 
 /* Rounded search bar */
 .search-bar .form-control {
-  border-radius: 9999px !important;
-  border-top-left-radius: 9999px !important;
-  border-bottom-left-radius: 9999px !important;
+  border-radius: 0 !important;
+}
+
+.search-bar .form-control:last-child {
+  border-radius: 0 9999px 9999px 0 !important;
+}
+
+.search-bar .input-group-text {
+  background-color: #12141C !important;
+  border-color: rgba(0, 229, 255, 0.15) !important;
+  color: #dce3f1 !important;
 }
 
 .search-bar .input-group-text:first-child {
@@ -238,6 +246,12 @@ body.light-theme .dropdown-item:focus {
 
 .search-bar .input-group-text:last-child {
   border-radius: 0 9999px 9999px 0 !important;
+}
+
+body.light-theme .search-bar .input-group-text {
+  background-color: #FFFFFF !important;
+  border-color: rgba(124, 58, 237, 0.3) !important;
+  color: #4C1D95 !important;
 }
 
 /* Modal styling */
