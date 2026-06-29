@@ -128,3 +128,8 @@ Closes #128
 # Package Manager
 
 **ALWAYS USE YARN** — The package manager for this project is Yarn. Run `yarn install`, `yarn build`, `yarn dev`, `yarn test`, `yarn lint`, etc. Never use `npm` or `npx` commands unless yarn is not supported.
+
+# Google Stitch
+
+**USE GOOGLE STITCH** — When using Google Stitch, always use project ID `9661936449043956109`.
+Furthermore, the agent MUST use Google Stitch to render its designs.
