@@ -54,7 +54,7 @@ export default function LeaguePage() {
                   Season
                 </h5>
                 <h3 className="fw-bold mb-3" style={{ color: '#dce3f1' }}>{selectedLeague.name}</h3>
-                <Pill variant="primary" className="mb-3">{selectedLeague.seasonName}</Pill>
+                <Pill variant="primary" className="mb-3 align-self-start">{selectedLeague.seasonName}</Pill>
                 <div className="mt-3 text-subtle" style={{ fontSize: '0.9rem' }}>
                   <div className="mb-1">
                     <span className="fw-bold" style={{ color: '#dce3f1' }}>Start:</span> {selectedLeague.startDate}
