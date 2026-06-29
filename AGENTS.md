@@ -124,3 +124,7 @@ Closes #128
 - Use even when you think you know the answer — deprecations and breaking changes happen
 - Do NOT use for: refactoring, writing scripts from scratch, debugging business logic, general programming concepts
 - Re-query if results look stale or don't match the installed version
+
+# Package Manager
+
+**ALWAYS USE YARN** — The package manager for this project is Yarn. Run `yarn install`, `yarn build`, `yarn dev`, `yarn test`, `yarn lint`, etc. Never use `npm` or `npx` commands unless yarn is not supported.
