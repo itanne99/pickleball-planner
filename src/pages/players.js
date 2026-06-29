@@ -11,6 +11,13 @@ import StatusBadge from '@/components/StatusBadge';
 import SectionHeader from '@/components/SectionHeader';
 import Avatar from '@/components/Avatar';
 
+const SORT_LABELS = {
+  name: 'Name',
+  dupr: 'DUPR',
+  winRate: 'Win Rate',
+  joinDate: 'Join Date',
+};
+
 const ITEMS_PER_PAGE = 8;
 
 export default function PlayersPage() {
@@ -96,7 +103,6 @@ export default function PlayersPage() {
                 value={statusFilter}
                 onChange={e => setStatusFilter(e.target.value)}
                 aria-label="Filter by status"
-                className="form-select-lg"
                 style={{ backgroundColor: '#12141C', borderColor: 'rgba(0, 229, 255, 0.15)', color: '#dce3f1' }}
               >
                 <option value="all">All Status</option>
@@ -108,8 +114,8 @@ export default function PlayersPage() {
               <FiFilter className="text-subtle" />
               <span className="text-subtle small">Sort:</span>
               <Dropdown>
-                <Dropdown.Toggle variant="outline-secondary" size="sm" id="sort-dropdown" style={{ backgroundColor: '#12141C', borderColor: 'rgba(0, 229, 255, 0.15)', color: '#dce3f1' }}>
-                  {sortField === 'name' ? 'Name' : sortField === 'dupr' ? 'DUPR' : sortField === 'winRate' ? 'Win Rate' : 'Join Date'}
+                <Dropdown.Toggle variant="outline-secondary" id="sort-dropdown" style={{ backgroundColor: '#12141C', borderColor: 'rgba(0, 229, 255, 0.15)', color: '#dce3f1' }}>
+                  {SORT_LABELS[sortField] || 'Join Date'}
                 </Dropdown.Toggle>
                 <Dropdown.Menu style={{ backgroundColor: '#12141C', borderColor: 'rgba(0, 229, 255, 0.15)' }}>
                   <Dropdown.Item onClick={() => handleSort('name')} style={{ color: '#dce3f1' }}>Name</Dropdown.Item>
